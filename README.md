@@ -17,4 +17,4 @@ pydot__tree_to_png(parser.parse("a:[lemma='է' & !pos='V']"), 'cqp_example.png')
 
 It generates this nice diagram:
 
-[[https://github.com/acoli-repo/cqp4rdf/blob/master/docs/img/cqp_example.png|alt=CQP diagram]]
+![CQP diagram](https://github.com/acoli-repo/cqp4rdf/blob/master/docs/img/cqp_example.png)
