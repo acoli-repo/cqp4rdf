@@ -1,0 +1,105 @@
+// ==========================================
+// EBNF for CQP (noSke dialect mostly)
+// ==========================================
+//
+// For details on the dialect, see docs/cqp_dialect.md
+// Maintainer: Max Ionov, max.ionov@gmail.com
+// Lifehack: set syntax highlighting to C or C++, it's good enough and it makes the grammar much more readable
+//
+// TODO:
+//	1. Quantification for items
+//	2. Better support for global constraints
+
+// ==========================================
+// Entry point
+// ==========================================
+
+// The essence of a CQP query is a set of items (query) and additional global constraints on that items
+start: query [ (_AND|"::") constraints ]
+
+// First, query:
+// Query consists of items, segments and operations `within` and `containing`.
+// Each item denotes a word (or several words if there is a quantifier), possibly with some conditions
+// `expr` is a single item in items.
+// It can be:
+//  1. A (named) word ([...])
+//  2. A segment name (<powla:sentence/>)
+//
+//  1. `expr` (not) within another item or (not) containing another `expr` ([conll:POS="olia:Verb"] within <powla:sentence/>) (recursion)
+//  2. A query enclosed in brackets (recursion one level up)
+//
+// Note: [] [] has more priority that within and containing:
+// [] [word="the"] within [word="obtain"] [] containing [word="the"] evaluates [word="obtain"] + [] before within and containing
+// The same goes for <segment/> <segment/> (<s/> <s/> containing [lc="баба"] [lc="катя"])
+// OR operation is in the middle (<s/> <s/> containing [lc="тетя"] | [lc="баба"] [lc="катя"])
+// (tested on noSketch Engine)
+?query: altern
+	| query "within" altern 		-> within
+	| query "!within" altern		-> not_within
+	| query "containing" altern 	-> containing
+	| query "!containing" altern	-> not_containing
+
+?altern: expr (_OR expr)* // later we can add quantifiers here
+//	| "(" query ")"
+
+word: var_name? "[" word_cond "]"
+
+?expr: word+						-> words
+	| segment+						-> segments
+	| "(" query ")"
+
+// `word` is a set of conditions inside a single (named) word ([...])
+// It can be empty or consist of a boolean expression
+word_cond: [ disjunction ]
+
+?disjunction: conjunction (_OR conjunction)*
+?conjunction: condition (_AND condition)*
+
+?condition: param "=" value		-> eq
+	| param "!=" value			-> neq
+	| "(" disjunction ")"
+	| "!" condition 			-> neg
+
+// Definitions of elements inside one component of a boolean expression denoting `word`
+param: TOKEN
+value: QUOTED_STRING
+
+
+// Now, constraints:
+constraints: condition
+
+// ==========================================
+// Basic definitions
+// ==========================================
+
+// -------- CQP-specific definitions --------
+// 1. Defining labels for words (not only digits but any alphanumeric with a colon)
+// 2. Defining segments
+
+var_name: CNAME ":"
+segment: SEGMENT_NAME
+SEGMENT_NAME: "<" TOKEN ">"
+	| "</" TOKEN ">"
+	| "<" TOKEN "/>"
+
+// -------- Unifiying different styles of logical primitives, let's give a user more freedom --------
+
+_OR:  "or"  | "|"
+_AND: "and" | "&"
+// _NOT: "not" | "!"
+
+// -------- Defining primitives --------
+
+TOKEN: /[A-Za-z0-9_:]+/
+QUOTED_STRING: ESCAPED_STRING_DBL | ESCAPED_STRING_SGL
+
+STRING_INNER_DBL: ("\\\""|/[^"]/)
+ESCAPED_STRING_DBL: "\"" STRING_INNER_DBL* "\""
+
+STRING_INNER_SGL: ("\\'"|/[^']/)
+ESCAPED_STRING_SGL: "'" STRING_INNER_SGL* "'"
+
+// -------- Importing basic data types and ignoring whitespaces --------
+%import common.CNAME
+%import common.WS
+%ignore WS
