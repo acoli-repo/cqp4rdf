@@ -91,6 +91,7 @@ exect_number: NUMBER 	-> count
 
 ?expr: word_or_seq+								-> words
 	| segment+									-> segments
+	| expr expr 								-> words
 	| "(" query ")"								
 
 // `word` is a set of conditions inside a single (named) word ([...])
@@ -145,6 +146,7 @@ segment: SEGMENT_NAME
 SEGMENT_NAME: "<" TOKEN ">"
 	| "</" TOKEN ">"
 	| "<" TOKEN "/>"
+	| "</>"
 
 // -------- Unifiying different styles of logical primitives, let's give a user more freedom --------
 
