@@ -2,20 +2,21 @@
 // EBNF for CQP (noSke dialect mostly)
 // ==========================================
 //
-// For details on the dialect, see docs/cqp_dialect.md
+// For details on the dialect, see /svn/intern/incubator/cqp2sparql/docs/
 // Maintainer: Max Ionov, max.ionov@gmail.com
+// Contributors: Max Ionov, Florian Stein
 // Lifehack: set syntax highlighting to C or C++, it's good enough and it makes the grammar much more readable
 //
 // TODO:
 //	1. Quantification for items
-//	2. Better support for global constraints
+//	2. Better support for constraints
 
 // ==========================================
 // Entry point
 // ==========================================
 
 // The essence of a CQP query is a set of items (query) and additional global constraints on that items
-start: query [ (_AND|"::") constraints ]
+start: query_outside [ (_AND|"::") constraints ]
 
 // First, query:
 // Query consists of items, segments and operations `within` and `containing`.
@@ -33,20 +34,64 @@ start: query [ (_AND|"::") constraints ]
 // The same goes for <segment/> <segment/> (<s/> <s/> containing [lc="баба"] [lc="катя"])
 // OR operation is in the middle (<s/> <s/> containing [lc="тетя"] | [lc="баба"] [lc="катя"])
 // (tested on noSketch Engine)
+
+query_outside: query 				-> query
+
 ?query: altern
 	| query "within" altern 		-> within
 	| query "!within" altern		-> not_within
 	| query "containing" altern 	-> containing
 	| query "!containing" altern	-> not_containing
 
-?altern: expr (_OR expr)* // later we can add quantifiers here
-//	| "(" query ")"
+?altern: expr (_OR expr)*
 
-word: var_name? "[" word_cond "]"
 
-?expr: word+						-> words
-	| segment+						-> segments
-	| "(" query ")"
+// // with redundant word-node after sequence
+// word: var_name? "[" word_cond "]"
+// ?word_or_seq: word 
+// 	| word "*"						-> sequence
+// 	| word "+"						-> non_empty_sequence
+// 	| word "{" lower "," upper "}"	-> limited
+// 	| word "{" exect_number "}"		-> exect_num
+// 	| word "?"						-> optinal
+
+// // minimal-solution without word-node after sequence
+// ?word_or_seq: word 
+// 	| hidden_word "*"						-> sequence
+// 	| hidden_word "+"						-> non_empty_sequence
+// 	| hidden_word "{" lower "," upper "}"	-> limited
+// 	| hidden_word "{" exect_number "}"		-> exect_num
+// 	| hidden_word "?"						-> optinal
+// ?hidden_word: var_name? "[" word_cond "]"
+// word: hidden_word 							-> word
+
+// accepting cool stuff like ([] [])* witch CQP actualy does not accept
+?word_or_seq: word 
+	| word_or_brack "*"									-> sequence
+	| word_or_brack "+"									-> non_empty_sequence
+	| word_or_brack "{" lower "," upper "}"				-> limited
+	| word_or_brack "{" lower ",}"						-> limited_lower
+	| word_or_brack "{," upper "}"						-> limited_upper
+	| word_or_brack "{" exect_number "}"				-> exect_num
+	| word_or_brack "?"									-> optinal
+?word_or_brack: word		// hidden_word		// for no redundant word-node
+	| "(" expr ")"
+
+word: (var_name ":")? "[" word_cond "]" 				-> word
+
+// ?hidden_word: var_name? "[" word_cond "]"
+// word: hidden_word 							-> word
+
+
+lower: NUMBER 			-> lower_limit
+upper: NUMBER 			-> upper_limit
+exect_number: NUMBER 	-> count
+
+
+
+?expr: word_or_seq+								-> words
+	| segment+									-> segments
+	| "(" query ")"								
 
 // `word` is a set of conditions inside a single (named) word ([...])
 // It can be empty or consist of a boolean expression
@@ -66,7 +111,25 @@ value: QUOTED_STRING
 
 
 // Now, constraints:
-constraints: condition
+// constraints: condition
+constraints: c_disjunc	 	 -> constraints
+	// | "(" constraints ")"
+	// | (_NOT) "(" constraints ")"	-> c_neq
+
+?c_disjunc: c_conjunc (_OR c_conjunc)*		//-> c_or
+?c_conjunc: constraint (_AND constraint)*	//-> c_and
+
+?constraint: word_param "=" word_param 		-> c_eq 
+	| word_param "!=" word_param			-> c_neq
+	| "(" c_disjunc ")"
+	| "!" c_disjunc 						-> c_neg
+
+// word_param: var_name "." c_prefix ":" c_param	-> term
+word_param: var_name "." c_param			-> term
+// v_name: CNAME								-> v_name
+c_param: TOKEN 								-> c_param
+// c_prefix: CNAME								-> c_prefix
+
 
 // ==========================================
 // Basic definitions
@@ -76,7 +139,8 @@ constraints: condition
 // 1. Defining labels for words (not only digits but any alphanumeric with a colon)
 // 2. Defining segments
 
-var_name: CNAME ":"
+var_name: CNAME
+	| NUMBER
 segment: SEGMENT_NAME
 SEGMENT_NAME: "<" TOKEN ">"
 	| "</" TOKEN ">"
@@ -86,7 +150,7 @@ SEGMENT_NAME: "<" TOKEN ">"
 
 _OR:  "or"  | "|"
 _AND: "and" | "&"
-// _NOT: "not" | "!"
+_NOT: "not" | "!"
 
 // -------- Defining primitives --------
 
@@ -103,3 +167,6 @@ ESCAPED_STRING_SGL: "'" STRING_INNER_SGL* "'"
 %import common.CNAME
 %import common.WS
 %ignore WS
+
+
+%import common.NUMBER
