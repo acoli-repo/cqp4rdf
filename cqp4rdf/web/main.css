@@ -1,0 +1,43 @@
+.kwic-results-header {
+    text-align: center;
+}
+
+
+.kwic-left-context {
+    text-align: right;
+    color: black;
+}
+
+.kwic-left-context a {
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.kwic-right-context {
+    text-align: left;
+    color: black;
+}
+
+.kwic-right-context a {
+    text-decoration: none;
+    text-align: left;
+    color: black;
+}
+
+.kwic-keywords {
+    font-weight: bold;
+    text-align: center;
+}
+
+.kwic-keywords a {
+    text-decoration: none;
+}
+
+#wordInfoBox {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

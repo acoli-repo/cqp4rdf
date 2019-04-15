@@ -1,0 +1,80 @@
+11.04.2019 05:38:52 PM loaded
+11.04.2019 05:38:53 PM  * Debugger is active!
+11.04.2019 05:38:53 PM  * Debugger PIN: 277-563-382
+11.04.2019 05:42:07 PM  * Detected change in '/Users/max/Projects/LiODi/svn/intern/incubator/cqp2sparql/cqp2sparql/main.py', reloading
+11.04.2019 05:42:12 PM loaded
+11.04.2019 05:42:12 PM  * Debugger is active!
+11.04.2019 05:42:12 PM  * Debugger PIN: 277-563-382
+11.04.2019 05:42:22 PM  * Detected change in '/Users/max/Projects/LiODi/svn/intern/incubator/cqp2sparql/cqp2sparql/main.py', reloading
+11.04.2019 05:42:23 PM loaded
+11.04.2019 05:42:23 PM  * Debugger is active!
+11.04.2019 05:42:23 PM  * Debugger PIN: 277-563-382
+11.04.2019 05:42:37 PM loaded
+11.04.2019 05:42:37 PM  * Running on http://127.0.0.1:8088/ (Press CTRL+C to quit)
+11.04.2019 05:42:37 PM  * Restarting with stat
+11.04.2019 05:42:38 PM loaded
+11.04.2019 05:42:38 PM  * Debugger is active!
+11.04.2019 05:42:38 PM  * Debugger PIN: 277-563-382
+11.04.2019 05:44:09 PM 127.0.0.1 - - [11/Apr/2019 17:44:09] "GET / HTTP/1.1" 200 -
+11.04.2019 05:44:10 PM 127.0.0.1 - - [11/Apr/2019 17:44:10] "GET /bootstrap.min.css HTTP/1.1" 304 -
+11.04.2019 05:44:10 PM 127.0.0.1 - - [11/Apr/2019 17:44:10] "GET /main.css HTTP/1.1" 304 -
+11.04.2019 05:44:10 PM 127.0.0.1 - - [11/Apr/2019 17:44:10] "GET /jquery.min.js HTTP/1.1" 304 -
+11.04.2019 05:44:10 PM 127.0.0.1 - - [11/Apr/2019 17:44:10] "GET /bootstrap.min.js HTTP/1.1" 304 -
+11.04.2019 05:44:15 PM 
+
+====== New query ======
+11.04.2019 05:44:15 PM [conll:TRANS="a.*"]
+11.04.2019 05:44:15 PM start
+  query
+    words
+      word
+        word_cond
+          eq
+            param	conll:TRANS
+            value	"a.*"
+
+11.04.2019 05:44:15 PM prefix conll: <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix terms: <http://purl.org/acoli/open-ie/>
+prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix system: <http://purl.org/olia/system.owl#>
+prefix olia:  <http://purl.org/olia/olia.owl#>
+prefix powla: <http://purl.org/powla/powla.owl#>
+prefix eanc: <http://purl.org/olia/eanc.owl#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?words ?links ?parents
+WHERE
+{
+	?var_1 a nif:Word .
+
+
+
+	?var_1 conll:TRANS ?val_1 .
+
+	?var_1 conll:WORD ?var_1_word . 
+	?var_1 powla:hasParent ?var_1_parent . 
+
+	FILTER(regex(?val_1, "^a.*$")) .
+
+	BIND(CONCAT((?var_1_word)) AS ?words) .
+	BIND(CONCAT(STR(?var_1)) AS ?links) .
+	BIND(CONCAT(STR(?var_1_parent)) AS ?parents) .
+
+
+}
+ORDER BY ?links OFFSET 0 LIMIT 51
+11.04.2019 05:44:20 PM done
+11.04.2019 05:44:20 PM 127.0.0.1 - - [11/Apr/2019 17:44:20] "GET /api/query?cqp=%5Bconll%3ATRANS%3D%22a.*%22%5D&page=1 HTTP/1.1" 200 -
+11.04.2019 05:45:07 PM  * Detected change in '/Users/max/Projects/LiODi/svn/intern/incubator/cqp2sparql/cqp2sparql/main.py', reloading
+11.04.2019 05:45:07 PM  * Restarting with stat
+11.04.2019 05:45:11 PM loaded
+11.04.2019 05:45:11 PM <lark.lark.Lark object at 0x10c3eb0f0>
+11.04.2019 05:45:11 PM  * Debugger is active!
+11.04.2019 05:45:11 PM  * Debugger PIN: 277-563-382
+11.04.2019 05:45:45 PM  * Detected change in '/Users/max/Projects/LiODi/svn/intern/incubator/cqp2sparql/cqp2sparql/main.py', reloading
+11.04.2019 05:45:45 PM  * Restarting with stat
+11.04.2019 05:45:49 PM loaded
+11.04.2019 05:45:49 PM  * Debugger is active!
+11.04.2019 05:45:49 PM  * Debugger PIN: 277-563-382
