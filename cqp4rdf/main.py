@@ -23,9 +23,10 @@ app = Flask(__name__, static_url_path='', static_folder=web_path, template_folde
 with open(config_path, encoding='utf-8') as inp_file:
     config = yaml.load(inp_file)
 
-prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['prefixes'].items())
-prefixes_index = {val: key for key, val in config['prefixes'].items()}
+prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][config['default']]['prefixes'].items())
+prefixes_index = {val: key for key, val in config['corpora'][config['default']]['prefixes'].items()}
 
+corpus_iri = config['corpora'][config['default']]['iri']
 
 @app.route('/')
 def main():
@@ -34,20 +35,34 @@ def main():
 contexts = {}
 
 def allChidren(parent):
-    sparql= prefixes + """
+    corpus = request.args.get('corpus')
+
+    prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][config['default']]['prefixes'].items())
+    prefixes_index = {val: key for key, val in config['corpora'][config['default']]['prefixes'].items()}
+
+    corpus_iri = config['corpora'][config['default']]['iri']
+
+    if corpus and corpus in config['corpora'].keys():
+        prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][corpus]['prefixes'].items())
+        prefixes_index = {val: key for key, val in config['corpora'][corpus]['prefixes'].items()}
+
+        corpus_iri = config['corpora'][corpus]['iri']
+
+    sparql = """{prefixes}
 
     SELECT DISTINCT ?word ?link
+    FROM <{corpus_iri}>
     WHERE
-    {
+    {{
         ?link a nif:Word .
 
-        ?link powla:hasParent <""" + parent + """> . 
+        ?link powla:hasParent <{parent}> . 
       
         ?link conll:WORD ?word . 
 
 
-    } ORDER BY ?link
-    """
+    }} ORDER BY ?link
+    """.format(prefixes=prefixes, corpus_iri=corpus_iri, parent=parent)
 
     conn.setQuery(sparql)
 
@@ -73,19 +88,33 @@ def linked_word(word):
 @app.route('/api/info')
 def word_info():
     word_uri = request.args.get('uri')
+    corpus = request.args.get('corpus')
 
-    sparql = prefixes + """
+    prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][config['default']]['prefixes'].items())
+    prefixes_index = {val: key for key, val in config['corpora'][config['default']]['prefixes'].items()}
+
+    corpus_iri = config['corpora'][config['default']]['iri']
+
+    if corpus and corpus in config['corpora'].keys():
+        prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][corpus]['prefixes'].items())
+        prefixes_index = {val: key for key, val in config['corpora'][corpus]['prefixes'].items()}
+
+        corpus_iri = config['corpora'][corpus]['iri']
+
+    sparql = """{prefixes}
 
     SELECT DISTINCT ?pred ?val 
+    FROM <{corpus_iri}>
     WHERE
-    {
-        <""" + word_uri + """> ?pred ?val .
+    {{
+        <{word_uri}> ?pred ?val .
 
 
-    }
-    """
+    }}
+    """.format(prefixes=prefixes, corpus_iri=corpus_iri, word_uri=word_uri)
 
     logging.debug(word_uri)
+    logging.info(sparql)
 
     conn.setQuery(sparql)
 
@@ -109,22 +138,34 @@ def word_info():
 def query():
     cqp = request.args.get('cqp')
     page = int(request.args.get('page'))  # config['n_results']
+    corpus = request.args.get('corpus')
 
     if not page:
         page = 1
+
+    prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][config['default']]['prefixes'].items())
+    prefixes_index = {val: key for key, val in config['corpora'][config['default']]['prefixes'].items()}
+
+    corpus_iri = config['corpora'][config['default']]['iri']
+
+    if corpus and corpus in config['corpora'].keys():
+        prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][corpus]['prefixes'].items())
+        prefixes_index = {val: key for key, val in config['corpora'][corpus]['prefixes'].items()}
+
+        corpus_iri = config['corpora'][corpus]['iri']
 
     logging.info('\n\n====== New query ======')
     logging.info(cqp)
     logging.info(parser.parse(cqp).pretty())
 
-    transformer = cqp2sparql.CQP2SPARQLTransformer()
+    transformer = cqp2sparql.CQP2SPARQLTransformer(prefixes, corpus_iri)
     trees = cqp2sparql.unfold(cqp2sparql.negless(parser.parse(cqp)))
 
     sparqls = []
 
     for tree in trees:
         # it's important not to reuse the transformers 
-        transformer = cqp2sparql.CQP2SPARQLTransformer()
+        transformer = cqp2sparql.CQP2SPARQLTransformer(prefixes, corpus_iri)
         sparqls += [transformer.transform(tree)]
         
     sparql = cqp2sparql.concat(sparqls) + "ORDER BY ?links OFFSET " + str((page-1) * config['n_results']) + " LIMIT " + str(config['n_results']+1)

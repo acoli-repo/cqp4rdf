@@ -156,18 +156,10 @@ Condition = collections.namedtuple('Condition', 'operation name value')
 class CQP2SPARQLTransformer(lark.Transformer):
     name_tmpl = {key: '?{}_{{}}'.format(key) for key in ('val', 'var', 'cond')}
     cond_tmpl = '{name}{operation}{value}'
-    sparql_tmpl = """prefix conll: <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix terms: <http://purl.org/acoli/open-ie/>
-prefix nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix system: <http://purl.org/olia/system.owl#>
-prefix olia:  <http://purl.org/olia/olia.owl#>
-prefix powla: <http://purl.org/powla/powla.owl#>
-prefix eanc: <http://purl.org/olia/eanc.owl#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+    sparql_tmpl = """%s
 
 SELECT DISTINCT {variables}
+FROM <%s>
 WHERE
 {{
 {conditions}
@@ -181,8 +173,10 @@ WHERE
         print(msg.format('CONDITIONS', self.token_conditions))
         print(msg.format('COND_VALUES', self.condition_values))
     
-    def __init__(self):
+    def __init__(self, prefixes, corpus_iri):
         super(CQP2SPARQLTransformer, self).__init__()
+
+        self.sparql_tmpl = self.sparql_tmpl % (prefixes, corpus_iri)
         
         # A list of all the variables (both named and var_N)
         self.tokens = []

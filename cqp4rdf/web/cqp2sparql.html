@@ -72,7 +72,7 @@ $(window).on('load', function () {
         $.ajax({
             type: 'GET',
             url: "http://{{ config['api']['host'] }}:{{ config['api']['port'] }}/api/info",
-            data: {uri: uri}
+            data: {uri: uri, corpus: $("#corpus").val()}
         }).done(function (data) {
             if (data) {
                 elem.html(convertTable(data));
@@ -93,7 +93,7 @@ $(window).on('load', function () {
         $.ajax({
             type: 'GET',
             url: "http://{{ config['api']['host'] }}:{{ config['api']['port'] }}/api/query",
-            data: {cqp: $("#cqp").val(), page: page}
+            data: {cqp: $("#cqp").val(), page: page, corpus: $("#corpus").val()}
         }).done(function (data) {
             if (data) {
                 $("#prev").prop('disabled', data['first_page']);
@@ -149,6 +149,7 @@ $(window).on('load', function () {
     </div>
 
     <form id="form" method="POST">
+        <input type="hidden" id="corpus" name="corpus" value="batsbi-flex"/>
         <div class="panel panel-default">
             <div class="panel-heading">Input data</div>
             <div class="panel-body">

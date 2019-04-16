@@ -1,4 +1,5 @@
 grammar: ../cqp.ebnf
+default: armenian-eanc
 n_results: 50
 api:
   port: 8088
@@ -6,14 +7,32 @@ api:
 sparql:
   host: http://127.0.0.1:9999/
   endpoint: bigdata/sparql
-prefixes:
-  conll: http://ufal.mff.cuni.cz/conll2009-st/task-description.html#
-  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
-  terms: http://purl.org/acoli/open-ie/
-  nif: http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#
-  rdfs: http://www.w3.org/2000/01/rdf-schema#
-  system: http://purl.org/olia/system.owl#
-  olia:  http://purl.org/olia/olia.owl#
-  powla: http://purl.org/powla/powla.owl#
-  eanc: http://purl.org/olia/eanc.owl#
-  xsd: http://www.w3.org/2001/XMLSchema#
+corpora:
+  armenian-eanc:
+    name: EANC fragment (fiction)
+    iri: http://acoli.cs.uni-frankfurt.de/corpora/armenian-eanc
+    prefixes:
+      conll: http://ufal.mff.cuni.cz/conll2009-st/task-description.html#
+      rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+      terms: http://purl.org/acoli/open-ie/
+      nif: http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#
+      rdfs: http://www.w3.org/2000/01/rdf-schema#
+      system: http://purl.org/olia/system.owl#
+      olia:  http://purl.org/olia/olia.owl#
+      powla: http://purl.org/powla/powla.owl#
+      eanc: http://purl.org/olia/eanc.owl#
+      xsd: http://www.w3.org/2001/XMLSchema#
+  batsbi-flex:
+    name: Batsbi text collection
+    iri: http://acoli.cs.uni-frankfurt.de/corpora/batsbi-flex
+    prefixes:
+      conll: http://ufal.mff.cuni.cz/conll2009-st/task-description.html#
+      rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+      terms: http://purl.org/acoli/open-ie/
+      nif: http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#
+      rdfs: http://www.w3.org/2000/01/rdf-schema#
+      system: http://purl.org/olia/system.owl#
+      olia:  http://purl.org/olia/olia.owl#
+      powla: http://purl.org/powla/powla.owl#
+      xsd: http://www.w3.org/2001/XMLSchema#
+
