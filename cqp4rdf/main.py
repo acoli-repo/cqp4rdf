@@ -30,7 +30,8 @@ corpus_iri = config['corpora'][config['default']]['iri']
 
 @app.route('/')
 def main():
-    return render_template('cqp2sparql.html', config=config)
+    corpus = request.args.get('corpus')
+    return render_template('cqp2sparql.html', config=config, corpus=corpus if corpus else config['default'])
 
 contexts = {}
 
