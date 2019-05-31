@@ -21,7 +21,7 @@ config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.y
 app = Flask(__name__, static_url_path='', static_folder=web_path, template_folder=web_path)
 
 with open(config_path, encoding='utf-8') as inp_file:
-    config = yaml.load(inp_file)
+    config = yaml.safe_load(inp_file)
 
 prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][config['default']]['prefixes'].items())
 prefixes_index = {val: key for key, val in config['corpora'][config['default']]['prefixes'].items()}
