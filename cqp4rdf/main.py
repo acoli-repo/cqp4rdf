@@ -56,10 +56,11 @@ def allChidren(parent):
     WHERE
     {{
         ?link a nif:Word .
-
-        ?link powla:hasParent <{parent}> . 
-      
+        ?sentence a nif:Sentence .
+        ?link conll:HEAD* ?sentence . 
         ?link conll:WORD ?word . 
+        
+        FILTER(?sentence = <{parent}>)
 
 
     }} ORDER BY ?link
