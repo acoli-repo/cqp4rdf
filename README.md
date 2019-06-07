@@ -31,3 +31,18 @@ CQP grammar is parsed by the [Lark Python module](https://github.com/lark-parser
 The details of the CQP dialect can be found in [the corresponding document](./docs/cqp_dialect.md).
 
 Currently, there is a simple web interface for searching with CQP in EANC (or any other POWLA-annotated corpus) written in Python. Its description can be found in [the corresponding document](./docs/web_interface.md).
+
+## How to install dependencies
+
+1. Create a virtualenv in python
+```
+virtualenv cqp4rdf_env --python=python3
+```
+
+2. Install the dependencies in the virtual enviornment 
+```
+pip install -r requirements.txt 
+```
+
+
+
