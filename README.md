@@ -32,7 +32,10 @@ The details of the CQP dialect can be found in [the corresponding document](./do
 
 Currently, there is a simple web interface for searching with CQP in EANC (or any other POWLA-annotated corpus) written in Python. Its description can be found in [the corresponding document](./docs/web_interface.md).
 
-## How to install dependencies
+3 Installation
+--------------
+
+### How to install dependencies
 
 1. Create a virtualenv in python
 ```
@@ -44,5 +47,9 @@ virtualenv cqp4rdf_env --python=python3
 pip install -r requirements.txt 
 ```
 
+### Configuring the system
 
+You will need a triple store with a SPARQL endpoint to use `cqp4rdf`. It was tested with Apache Jena Fuseki and Blazegraph.
+Apart from that, you need to create a config file `config.yaml` in the installation directory (you can rename `config.example.yaml` and modify it). The URL for the SPARQL endpoint is configured there.
 
+Triples should be stored in a named graph that is also specified in a config.
