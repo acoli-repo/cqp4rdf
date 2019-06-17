@@ -6,6 +6,7 @@ import lark
 import cqp2sparql
 import html
 import urllib.parse
+from flask_cors import CORS
 
 import logging
 
@@ -19,6 +20,7 @@ logging.basicConfig(filename='cqp4rdf.log',
 web_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'web')
 config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.yaml')
 app = Flask(__name__, static_url_path='', static_folder=web_path, template_folder=web_path)
+CORS(app)
 
 with open(config_path, encoding='utf-8') as inp_file:
     config = yaml.safe_load(inp_file)

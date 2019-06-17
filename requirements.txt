@@ -3,3 +3,4 @@ pyyaml
 lark-parser
 IPython
 SPARQLWrapper
+flask_cors
