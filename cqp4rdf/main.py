@@ -58,7 +58,7 @@ def allChidren(parent):
         ?link a nif:Word .
         ?sentence a nif:Sentence .
         ?link conll:HEAD* ?sentence . 
-        ?link conll:WORD ?word . 
+        ?link conll:FORM ?word . 
         
         FILTER(?sentence = <{parent}>)
 
