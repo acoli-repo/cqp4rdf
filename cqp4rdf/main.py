@@ -52,7 +52,6 @@ def allChidren(parent):
     sparql = """{prefixes}
 
     SELECT DISTINCT ?word ?link
-    FROM <{corpus_iri}>
     WHERE
     {{
         ?link a nif:Word .
@@ -106,7 +105,6 @@ def word_info():
     sparql = """{prefixes}
 
     SELECT DISTINCT ?pred ?val 
-    FROM <{corpus_iri}>
     WHERE
     {{
         <{word_uri}> ?pred ?val .

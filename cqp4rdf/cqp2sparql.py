@@ -159,7 +159,6 @@ class CQP2SPARQLTransformer(lark.Transformer):
     sparql_tmpl = """%s
 
 SELECT DISTINCT {variables}
-FROM <%s>
 WHERE
 {{
 {conditions}
@@ -176,7 +175,7 @@ WHERE
     def __init__(self, prefixes, corpus_iri):
         super(CQP2SPARQLTransformer, self).__init__()
 
-        self.sparql_tmpl = self.sparql_tmpl % (prefixes, corpus_iri)
+        self.sparql_tmpl = self.sparql_tmpl % (prefixes)
         
         # A list of all the variables (both named and var_N)
         self.tokens = []
