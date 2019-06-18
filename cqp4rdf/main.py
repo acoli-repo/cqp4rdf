@@ -6,6 +6,7 @@ import lark
 import cqp2sparql
 import html
 import urllib.parse
+import json
 
 import logging
 
@@ -133,7 +134,7 @@ def word_info():
                     pred = pred.replace(prefix, prefixes_index[prefix] + ':')
             res += [{"pred": pred, "val": result["val"]["value"]}]
 
-    return jsonify(res)
+    return json.dumps(res)
 
 
 @app.route('/api/query')

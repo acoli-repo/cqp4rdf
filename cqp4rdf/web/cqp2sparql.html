@@ -30,10 +30,11 @@ $(window).on('load', function () {
     };
 
     var convertTable = function (table) {
+        table=JSON.parse(table);
         return '<table class="table table-striped">' +
             table.map(function (pair) {
-                return '<tr>' + convertRdfPair(pair) + '</tr>'
-        }).join('\n') + '</table>'
+                return '<tr>' + convertRdfPair(pair) + '</tr>';
+        }).join('\n') + '</table>';
     };
 
     var createPopoverLink = function (uri, word) {
