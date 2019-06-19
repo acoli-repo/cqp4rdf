@@ -646,7 +646,7 @@ WHERE
             sparql['var_definitions'].append('\t{var} a nif:Word .'.format(var=var))
             # sparql['var_definitions'].append('\t{var} a nif:Word .'.format(var=var))
 
-            sparql['var_optional'].append('\t' + var + ' conll:WORD ' + var + '_word . ')
+            sparql['var_optional'].append('\t' + var + ' conll:FORM ' + var + '_word . ')
             sparql['var_optional'].append('\t' + var + ' conll:HEAD* ' + var + '_parent . ')
             sparql['var_optional'].append('\t' + var + '_parent a nif:Sentence . ')
 
