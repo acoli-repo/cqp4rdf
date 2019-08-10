@@ -188,6 +188,37 @@ $(window).on('load', function () {
         </div>
     </form>
     <br>
+    <div class="card shadow">
+        <div class="card-header" style="background-color: #E8EBEF">
+            Input Form
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-4" style="padding: 1% 5%">
+                    <button type="submit" class="btn btn-primary" style="width: 100%" onclick="add_word()">
+                        <strong>ADD WORD</strong>
+                    </button>
+                </div>
+                <div class="col-xs-12 col-md-4" style="padding: 1% 5%">
+                    <button type="submit" class="btn btn-success" style="width: 100%" onclick="write_query()">
+                        <strong>GENERATE QUERY</strong>
+                    </button>
+                </div>
+                <div class="col-xs-12 col-md-4" style="padding: 1% 5%">
+                    <button type="submit" class="btn btn-primary" onclick="add_dependency()" style="width: 100%">
+                    <strong>ADD DEPENDENCY</strong>
+                    </button>
+                </div>
+            </div>
+            <div class="row">   
+                <div class="word_list accordion col-xs-12 col-md-7" id="accordionExample1">
+                </div>              
+                <div class="dependency_list accordion col-xs-12 col-md-5" id="accordionExample2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
     <div class="card">
         <!--<div class="panel-body" id="sparql">
 
