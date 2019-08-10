@@ -1,4 +1,7 @@
 .idea
 __pycache__
 *.pyc
-
+# ignore the cqp4rdf.log and cqp4rdf/cqp4rdf.log
+*.log
+# Ignore Mac system files
+.DS_store
