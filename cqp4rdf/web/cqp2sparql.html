@@ -73,25 +73,29 @@ $(window).on('load', function () {
 
     var convertTable = function (data) {
         properties='<table class="table table-striped">';
-        console.log(data);
+        
         for(i=0;i<data.length;i++){
-            console.log(data[i]);
-            if(data[i]['pred']=="conll:FEATS"){
-                val=data[i]['val'].split("|");
-                console.log(val);
+            field=data[i]['pred'].split(":")[1];
+            
+            if(config['corpora'][config['default']]['fields'][field]["multivalued"]==true){
+                separator=config['corpora'][config['default']]['fields'][field]["separator"];
+                val=data[i]['val'].split(separator);
+                
                 for(j=0;j<val.length;j++){
                     properties+="<tr>";
+                    
                     if(j==0){
-                        properties+= '<td>' + data[i]['pred'] + '</td>';    
+                        properties+= '<td>' + data[i]['pred'].split(":")[1] + '</td>';    
                     }
                     else{
                         properties+= '<td></td>'   
                     }
+                    
                     properties+= '<td>' + val[j] + '</td>'+'</tr>\n';    
                 }
             }
             else{
-                properties += '<tr>' + '<td>' + data[i]['pred'] + '</td>'+ '<td>' + data[i]['val'] + '</td>'+'</tr>\n';
+                properties += '<tr>' + '<td>' + data[i]['pred'].split(":")[1] + '</td>'+ '<td>' + data[i]['val'] + '</td>'+'</tr>\n';
             }
         }
         properties+= '</table>';
