@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, render_template
 
 import os
-import yaml
+import oyaml
 import lark
 import cqp2sparql
 import html
@@ -21,12 +21,14 @@ config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.y
 app = Flask(__name__, static_url_path='', static_folder=web_path, template_folder=web_path)
 
 with open(config_path, encoding='utf-8') as inp_file:
-    config = yaml.safe_load(inp_file)
+    config = oyaml.safe_load(inp_file)
 
 prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][config['default']]['prefixes'].items())
 prefixes_index = {val: key for key, val in config['corpora'][config['default']]['prefixes'].items()}
 
 corpus_iri = config['corpora'][config['default']]['iri']
+
+config['corpora'][config['default']]['order']=list(config['corpora'][config['default']]['fields'].keys())
 
 @app.route('/')
 def main():
