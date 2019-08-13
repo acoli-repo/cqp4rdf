@@ -28,7 +28,12 @@ prefixes_index = {val: key for key, val in config['corpora'][config['default']][
 
 corpus_iri = config['corpora'][config['default']]['iri']
 
-config['corpora'][config['default']]['order']=list(config['corpora'][config['default']]['fields'].keys())
+order=[]
+for i in list(config['corpora'][config['default']]['fields'].keys()):
+    if(config['corpora'][config['default']]['fields'][i]["disabled"]==False):
+        order.append(i)
+
+config['corpora'][config['default']]['order'] = order
 
 @app.route('/')
 def main():
