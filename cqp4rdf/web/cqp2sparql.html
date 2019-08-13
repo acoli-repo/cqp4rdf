@@ -133,8 +133,13 @@ $(window).on('load', function () {
         output.push('<tr><td class="kwic-results-header text-center">' + ['File','&nbsp;','Keywords', '&nbsp;'].join('</td><td>') + '</td></tr>');
         table.forEach(function(row) {
             output.push('<tr>');
-
-            file_name=row['keywords'][0]['link'].split('#')[0].split('/').pop().split('.')[0];
+            
+            link = row['keywords'][0]['link'];
+            iri = config["corpora"][config["default"]]["iri"];
+            file_name = link.replace(iri+"data/","");
+            file_name = file_name.split("#")[0];
+            file_name = file_name.replace(".conll","");
+            
             output.push(`<td class='kwic-file-name'><a target='_blank' href='${config['corpora'][config['default']]['file-host']+file_name}'>${file_name}</a></td>`);
 
             output.push(generateWordList(row['l_context'], 'kwic-left-context text-right'));
