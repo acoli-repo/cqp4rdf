@@ -73,29 +73,41 @@ $(window).on('load', function () {
 
     var convertTable = function (data) {
         properties='<table class="table table-striped">';
-        
+
+        order=config['corpora'][config["default"]]["order"];
+        all_fields=config['corpora'][config["default"]]["fields"];
+
+        data_dict={}
+
         for(i=0;i<data.length;i++){
-            field=data[i]['pred'].split(":")[1];
+            data_dict[data[i]['pred'].split(":")[1]]=data[i]['val'];
+        }
+        
+        for(i=0;i<order.length;i++){
+            if(data_dict[order[i]]==undefined){
+                continue;
+            }
             
-            if(config['corpora'][config['default']]['fields'][field]["multivalued"]==true){
-                separator=config['corpora'][config['default']]['fields'][field]["separator"];
-                val=data[i]['val'].split(separator);
-                
+            field=all_fields[order[i]];
+
+            if(field["multivalued"]==true){
+                separator=field["separator"];
+                val=data_dict[order[i]].split(separator);
                 for(j=0;j<val.length;j++){
                     properties+="<tr>";
                     
                     if(j==0){
-                        properties+= '<td>' + data[i]['pred'].split(":")[1] + '</td>';    
+                        properties+= '<td>' + order[i] + '</td>';    
                     }
                     else{
                         properties+= '<td></td>'   
                     }
-                    
+
                     properties+= '<td>' + val[j] + '</td>'+'</tr>\n';    
                 }
             }
             else{
-                properties += '<tr>' + '<td>' + data[i]['pred'].split(":")[1] + '</td>'+ '<td>' + data[i]['val'] + '</td>'+'</tr>\n';
+                properties += '<tr>' + '<td>' + order[i] + '</td>'+ '<td>' + data_dict[order[i]] + '</td>'+'</tr>\n';
             }
         }
         properties+= '</table>';
