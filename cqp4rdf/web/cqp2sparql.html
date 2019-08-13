@@ -85,6 +85,7 @@ $(window).on('load', function () {
         
         for(i=0;i<order.length;i++){
             if(data_dict[order[i]]==undefined){
+                properties += '<tr>' + '<td>' + order[i] + '</td>'+ '<td> </td>'+'</tr>\n';
                 continue;
             }
             
