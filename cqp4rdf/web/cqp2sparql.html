@@ -130,9 +130,12 @@ $(window).on('load', function () {
         var output = [];
 
         output.push('<table class="table table-striped">');
-        output.push('<tr><td class="kwic-results-header text-center">' + ['&nbsp;', 'Keywords', '&nbsp;'].join('</td><td>') + '</td></tr>');
+        output.push('<tr><td class="kwic-results-header text-center">' + ['File','&nbsp;','Keywords', '&nbsp;'].join('</td><td>') + '</td></tr>');
         table.forEach(function(row) {
             output.push('<tr>');
+
+            file_name=row['keywords'][0]['link'].split('#')[0].split('/').pop().split('.')[0];
+            output.push(`<td class='kwic-file-name'><a target='_blank' href='${config['corpora'][config['default']]['file-host']+file_name}'>${file_name}</a></td>`);
 
             output.push(generateWordList(row['l_context'], 'kwic-left-context text-right'));
             output.push(generateWordList(row['keywords'], 'kwic-keywords text-center'));
