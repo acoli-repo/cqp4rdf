@@ -66,11 +66,12 @@ def allChidren(parent):
         ?sentence a nif:Sentence .
         ?link conll:HEAD* ?sentence . 
         ?link conll:FORM ?word . 
-        
+        ?link conll:ID ?id
+
         FILTER(?sentence = <{parent}>)
 
 
-    }} ORDER BY ?link
+    }} ORDER BY xsd:integer(?id)
     """.format(prefixes=prefixes, corpus_iri=corpus_iri, parent=parent)
 
     conn.setQuery(sparql)
