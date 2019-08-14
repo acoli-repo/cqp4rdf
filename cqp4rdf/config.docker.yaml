@@ -3,9 +3,9 @@ default: cdli
 n_results: 50
 api:
   port: 8088
-  host: 127.0.0.1
+  host: 0.0.0.0
 sparql:
-  host: http://127.0.0.1:3030/
+  host: http://fuseki:3030/
   endpoint: test/query
 corpora:
   ud-en:
