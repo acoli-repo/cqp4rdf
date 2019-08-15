@@ -159,7 +159,8 @@ $(window).on('load', function () {
     var showWordInfo = function(elem, uri) {
         $.ajax({
             type: 'GET',
-            url: "http://{{ config['api']['host'] }}:{{ config['api']['port'] }}/api/info",
+            // url: "http://{{ config['api']['host'] }}:{{ config['api']['port'] }}/api/info",
+            url: `${window.location["origin"]}/api/info`,
             data: {uri: uri, corpus: $("#corpus").val()}
         }).done(function (data) {
             if (data) {
@@ -180,7 +181,8 @@ $(window).on('load', function () {
         $("#result").html("<i>Loading...</i>");
         $.ajax({
             type: 'GET',
-            url: "http://{{ config['api']['host'] }}:{{ config['api']['port'] }}/api/query",
+            // url: "http://{{ config['api']['host'] }}:{{ config['api']['port'] }}/api/query",
+            url: `${window.location["origin"]}/api/query`,
             data: {cqp: $("#cqp").val(), page: page, corpus: $("#corpus").val()}
         }).done(function (data) {
             if (data) {
