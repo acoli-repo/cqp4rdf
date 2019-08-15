@@ -1,8 +1,9 @@
-
 # CQP4RDF
+
 CQP4RDF is a tool which can be used to easily query from a corpus which has multiple layers of annotations. For querying either the query can be written directly in form of `CQP` or the query can be generated from the Query Generator GUI which we have developed and is capable to generate complex `CQP` queries.   
 
 ## Motivation
+
 In our experiments with SPARQL for corpora querying, we stumbled upon a problem: writing complex SPARQL queries is hard. Especially for people without enough expertise in the field. To make the process easier, it makes sense to use a widely-known corpus query language, use it and then translate queries to SPARQL queries which are then run against our data.
 
 A good candidate for the query language is CQP — a language developed for the IMS Corpus Workbench.
@@ -31,21 +32,21 @@ The details of the CQP dialect can be found in [the corresponding document](./do
 
 Currently, there is a simple web interface for searching with CQP in EANC (or any other POWLA-annotated corpus) written in Python. Its description can be found in [the corresponding document](./docs/web_interface.md).
 
-## Build status
+<!-- ## Build status
 Build status of continuous integration i.e. Travis, appveyor etc. Ex. - 
 
 [![Build Status](https://travis-ci.org/akashnimare/foco.svg?branch=master)](https://travis-ci.org/akashnimare/foco)
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/akashnimare/foco?branch=master&svg=true)](https://ci.appveyor.com/project/akashnimare/foco/branch/master)
-
-## Code style
+ -->
+<!-- ## Code style
 If you're using any code style like xo, standard etc. That will help others while contributing to your project. Ex. -
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
- 
+ --> 
 ## Screenshots
 ![screencapture-35-157-4-217-8080-2019-08-15-13_16_44](https://user-images.githubusercontent.com/22503629/63080573-0cdb2e80-bf5f-11e9-9fa2-1c4c4eca26dc.png)
 
-## Tech/framework used
+## Technology Used
 <b>Built with</b>
 - [Python]()
 - [Javascript]()
@@ -168,12 +169,17 @@ TODO
 Let people know how they can contribute to your project. A [contributing guideline](https://github.com/zulip/zulip-electron/blob/master/CONTRIBUTING.md) will be a big plus.
 ==> Ask for contributing guidelines
 
-## Credits
-TODO
-Give proper credits. This could be a link to any repo which inspired you to build this project, any blog posts or links to people who contributed in this project. 
-
 ## Further Improvements
-TODO
+Some of the possible future improvements:-
+- An `ADMIN` portal, which can be used to configure and would be saved as config file.  
+- The portal which can be used to upload the data directly without uploading from the SPRQL endpoint 
+- Improving the API, so that they can return multiple types of value
+
+## Credits
+- Max Ionov
+- Prof Name
+- Ilya Khaith
+- Sagar 
 
 ## License
 TODO
