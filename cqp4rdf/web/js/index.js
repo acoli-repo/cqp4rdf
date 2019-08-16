@@ -1,21 +1,44 @@
+// counter to count the number of words
 var counter=0; 
-var word_query_list={};
+
+// a list that mantains the ids of all the words
 var word_id_list=[];
+
+// a dictionary, that holds the query for corresponding words ids
+var word_query_list={};
+
+// a dictionary that mantains the variable names for the corresponding word id 
 var word_name_list={};
 
-var dependency_query_list={};
-var dependency_id_list=[];
+// a counter to keep tarck of the count of the dependencies
 var dependencycounter=0;
+
+// a list that mantains the id of all the dependencies
+var dependency_id_list=[];
+
+// a dictionary that keeps the dependency for the corresponding dependency query id
+var dependency_query_list={};
+
+// a list that keeps the extra words which are added, when we specify range dependencies 
 var word_dependency_id_list=[]
 
+// config which keeps the config whichis loaded from config.yaml file
 window.config=null;
 
 function send_config(vars) {
+	/**
+		The function is used to get the config from the cqp4rdf.html file 
+		and save them globally in the index.js file
+	**/ 
 	window.config=vars;
     return vars
 }
 
-function or_property(block,word){
+function or_property(block, word){
+	/**
+	 * 	This function adds more conditions in OR with the current condition
+	 * 	for that particular word
+	 */
 	var prop=block.parentElement.parentElement.parentElement.getElementsByClassName("inside_card")[0];
 	
 	order=window.config['corpora'][config['default']]['order'];
@@ -40,9 +63,10 @@ function or_property(block,word){
 }
 
 function update_input_style(element,word){
-	// console.log(element.nextElementSibling.nextElementSibling);
-	// console.log(element);
-	// console.log(word.id);
+	/**
+	 * This function updates the input style, 
+	 * for various properties as specified in the config file.
+	 */
 
 	replace_element=element.nextElementSibling.nextElementSibling;
 	if(window.config['corpora'][config['default']]['fields'][element.value]["type"]=="list"){
@@ -120,7 +144,11 @@ function update_input_style(element,word){
 }
 
 function update_input_box(dropdown){	
-	console.log("lol");
+	/**
+	 * 	This function is specifically called from update_input_style(),  
+	 * 	when the input style selected by a user is SUGGEST.
+	 * 	This function updates the input box border radius as per the user selction.
+	 */
 	children=dropdown.parentElement.nextElementSibling.children;
 	console.log(children);
 	if(dropdown.value=="normal"){
@@ -137,7 +165,6 @@ function update_input_box(dropdown){
 		$(children[0]).hide();
 		$(children[3]).show();
 		$(children[1]).css({"border-radius":"0 0 0 5px"});
-		// children[1].style.border-radius="0 0 0 5px";
 	}
 	else if(dropdown.value=="end"){
 		$(children[0]).show();
@@ -145,10 +172,12 @@ function update_input_box(dropdown){
 		$(children[1]).css({"border-radius":"0 0 5px 0"});
 	}
 	update_query();
-	// dropdown.parentElement.nextElementSibling.value="-"+dropdown.parentElement.nextElementSibling.value+"-";
 }
 
 function add_property(word){
+	/**
+	 * This function adds a property in AND along with the current conditions for that particular word
+	 */
 	var properties = word.getElementsByClassName("word_property_list")[0];
 	
 	order=window.config['corpora'][config['default']]['order'];
@@ -197,6 +226,11 @@ function add_property(word){
 }
 
 function add_word(){
+	/**
+	 * This function adds a new word.
+	 * Along with the word a `nif:nextWord` dependency is also added between the last 2 words.
+	 */
+	
 	window.counter+=1;
 
 	
@@ -277,24 +311,23 @@ function add_word(){
 
     slider.noUiSlider.on('update', function (values, handle) {
         snapValues[handle].textContent = parseInt(values[handle]);
-        // console.log(this.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
 		update_query();
     });
 
 	window.word_query_list[`w${window.counter}`]= `w${window.counter}:[]{1}`;
 	window.word_name_list[`w${window.counter}`]= `w${window.counter}`;
 	window.word_id_list.push(`w${window.counter}`);
-	// update_dropdown();
-	// write_query();
 
 	if(window.word_id_list.length>1){
 		add_dependency(add_sequence_dependency=true);
-		// console.log("called add_dependency specially");
 	}
 	update_query();
 }
 
 function update_query_regex_escape(value){
+	/**
+	 * Update the normal query so that the special characters are treated as normally.
+	 */
 	update_value=""
 	for(i=0;i<value.length;i++){
 		if("()[]{}.*+?".includes(value[i])){
@@ -306,14 +339,16 @@ function update_query_regex_escape(value){
 }
 
 function get_word_query(word){
+	/**
+	 * This function gets make the word query for the given word, 
+	 * using all the properties specified for it.
+	 */
 	query="";
 	varible_name=word.getElementsByClassName("variable_name")[0].value;
 	
 	range_from=word.getElementsByClassName("left_value")[0].textContent;
 	range_to=word.getElementsByClassName("right_value")[0].textContent;	
-	// console.log(word.getElementsByClassName("left_value")[0].textContent);
-	// console.log(word.getElementsByClassName("right_value")[0].textContent);
-
+	
 	range="{"+range_from+", "+range_to+"} ";
 	if(range_to.trim()=="inf"){
 		if(range_from.trim()=="0"){
@@ -352,7 +387,6 @@ function get_word_query(word){
 					regex_escape=property_value[k].parentElement.nextElementSibling.children[0];
 					if(regex_escape.checked==false){
 						value=update_query_regex_escape(value);
-						console.log(">sagar>"+value);
 					}				
 					regex_constrain=property_value[k].parentElement.previousElementSibling.children[0].value;
 					if(regex_constrain=="start"){
@@ -367,7 +401,6 @@ function get_word_query(word){
 				}
 				if(has_info==true)
 					query_in+=" | ";
-				// query_in+="conll:"+name;
 				query_in+=annotations=window.config['corpora'][config['default']]['fields'][name]['query'];
 				has_info=true;
 				x=true;
@@ -387,7 +420,6 @@ function get_word_query(word){
 				first_time=false;
 			query+=query_in;
 		}
-		// console.log(first_time);
 	}
 	query+=" ]"+range;
 
@@ -395,7 +427,14 @@ function get_word_query(word){
 }
 
 function update_word_query(word){
-	// console.log("here")
+	/**
+	 * This function calls the get_word_query() function to calculate the word query
+	 * and then it is placed at the top bar. Also, the word query is updated in the 
+	 * arrays and dictionaries, which are further used to make a total query.
+	 * Also, this function checks for the variable name, which is first checked 
+	 * and then updated in the query as well as in the depndencies. It also warns the 
+	 * users if the variable name is already used or reserved.
+	 */
 	id=word.id;
 	var_name=$(".variable_name",word)[0].value;
 	if(id!=var_name && window.word_name_list[id]!=var_name ){
@@ -413,11 +452,14 @@ function update_word_query(word){
 	query=get_word_query(word);
 	word.getElementsByClassName("btn")[0].textContent=query;
 	window.word_query_list[word.id]=query;
-	// write_query();
-	// update_dropdown();
 }
 
 function write_query(){
+	/**
+	 * This function is used to calculate and rite the final query 
+	 * from all the lists and dictionaries which we have mantained.
+	 * 
+	 */
 	query1="";
 
 	for(i=0;i<window.word_id_list.length;i++){
@@ -456,7 +498,11 @@ function write_query(){
 }
 
 function update_query(){
-	
+	/**
+	 * This function is the core main function which is responsible of complete update. 
+	 * Whenever a change is made, this function is being called. 
+	 * This function call all other functions and finally the omplete update is made.
+	 */
 	for(i=0;i<window.word_id_list.length;i++){
 		w=$("#"+window.word_id_list[i])[0];
 		update_word_query(w);
@@ -468,15 +514,15 @@ function update_query(){
 		d=$("#"+window.dependency_id_list[i])[0];
 		update_dependency_query(d);
 	}
-	
-	// // >>> update_word_query
-	// // >>> update_dropdown
-	// // >>> update_dependency_query
-	// // >>> write 
 	write_query();	
 }
 
 function update_dropdown(add_sequence_dependency=false){
+	/**
+	 * This function updates the dropdown in add the dependencies.
+	 * As soon as an update is made in a word query, this function is used, 
+	 * so that the updated query can be shown in the dropdowns.
+	 */
 	console.log(add_sequence_dependency);
 	left=$("select.word_left");
 
@@ -500,12 +546,6 @@ function update_dropdown(add_sequence_dependency=false){
 
 			$(left[left_word]).append(`<option value="${window.word_id_list[left_word_options]}" ${selected}> ${window.word_query_list[window.word_id_list[left_word_options]]} </option>`);
 		}
-		// parent=$(left[left_word]).closest(".card.shadow")[0];
-		// if(added==false && selected_option!="None"){
-		// 	console.log(added);
-		// 	console.log(selected_option);
-		// 	delete_dependency(parent);
-		// }
 	}
 
 	right=$("select.word_right");
@@ -526,55 +566,19 @@ function update_dropdown(add_sequence_dependency=false){
 			if(window.word_id_list[right_word_options].trim()==selected_option.trim()){
 				selected="selected";
 				added=true;
-			}
-			// else{
-			// 	console.log(window.word_name_list[window.word_id_list[right_word_options]].trim()+"~"+selected_option.trim())
-			// }			
+			}		
 			$(right[right_word]).append(`<option value="${window.word_id_list[right_word_options]}" ${selected}> ${window.word_query_list[window.word_id_list[right_word_options]]} </option>`);
 		}
 	}
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// for(left_word=0;left_word<left.length;left_word++){
-		
-	// 	added=false;
-	// 	selected_option_key=left[left_word][left[left_word].selectedIndex].value.split(":")[0].trim();
-	// 	left[left_word].options.length=1;
-	// 	left[left_word].options[0].selected=true;
-		
-	// 	if(add_sequence_dependency && j==left.length-1)
-	// 		selected_option=window.word_id_list[window.word_id_list.length-2];
-		
-	// 	for(left_word_options=0;left_word_options<window.word_id_list.length;left_word_options++){
-	// 		selected="";
-	// 		if(window.word_id_list[left_word_options].trim()==selected_option_key.trim()){
-	// 			selected="selected";
-	// 			added=true;
-	// 		}
-	// 		else{
-	// 			console.log(window.word_name_list[window.word_id_list[left_word_options]].trim()+"~"+selected_option_key.trim())
-	// 		}			
-	// 		$(left[left_word]).append(`<option value="${window.word_id_list[left_word_options]}" ${selected}> ${window.word_query_list[window.word_id_list[left_word_options]]} </option>`);
-	// 	}
-	// }
-		
-
 function add_dependency(add_sequence_dependency=false){
-	
+	/**
+	 * This function is used to add depenency, and dependency can be added b/w any 2 words.
+	 * Also, this function is most of times called by default, 
+	 * because we need to add a `nif:nextWord` dependency as we are ina process of adding words.
+	 */
 	dependency_list=document.getElementsByClassName('dependency_list')[0];
 
 	collapse_list=dependency_list.getElementsByClassName("collapse");
@@ -673,11 +677,9 @@ function add_dependency(add_sequence_dependency=false){
 
 	var snapValues = [ left_value,right_value ];
 
-	// dep_id=$(`#d${window.dependencycounter}`)[0];
 	slider.noUiSlider.on('update', function (values, handle) {
     	snapValues[handle].textContent = parseInt(values[handle]);
     	update_query();
-    	// sagar// update_dependency_query(this.target.parentElement.parentElement.parentElement.parentElement.parentElement);
 	});
 
 	window.dependency_id_list.push(`d${window.dependencycounter}`);
@@ -686,11 +688,17 @@ function add_dependency(add_sequence_dependency=false){
 	update_dropdown(add_sequence_dependency);
 	update_query();
 	
-	// sagar // update_dependency_query($(`#d${window.dependencycounter}`)[0]);
 }
 
 function update_dependency_query(dependency){
-	
+	/**
+	 * This function is used to calculate the dependency query, from a given dependency box.
+	 * The caluclated dependency query is updated on the top bar of the dependency 
+	 * and also in the global variables.
+	 * Also, from the 2 words if any of the 2 words are not choosen and are None, 
+	 * or have been deleted, the query would not be genrated 
+	 * and would be replaced by the dependency id on the top bar of the dependency. 
+	 */
 	left=$(".word_left",dependency)[0];
 	dependency_type=$(".dependency_type",dependency)[0];
 	proximity=$(".proximity",dependency)[0];
@@ -712,13 +720,9 @@ function update_dependency_query(dependency){
 		d=dependency_type.value.trim();
 		p=proximity.value.trim();
 		
-		// if(p=="adjoining"){
-		// 	dist="{0}";
-		// }
 		dist="";
 		if(p=="range"){
 			dist=`{${from},${to}}`;
-			// console.log(dist);
 		}
 		else if(p=="any"){
 			dist="*";
@@ -769,9 +773,7 @@ function update_dependency_query(dependency){
 
 		window.dependency_query_list[dependency.id]=query;
 
-		// console.log(query);
 		$(".btn",dependency)[0].textContent=query;
-		// write_query();
 	}
 	else{
 		$(".btn",dependency)[0].textContent=dependency.id;
@@ -781,6 +783,11 @@ function update_dependency_query(dependency){
 
 
 function delete_dependency(dependency){
+	/**
+	 * This function is used to delete dependency, given a dependency.
+	 * Along with dletig the depndency box from the GUI, the dependency 
+	 * and its corresponding query is removed from the global variables. 
+	 */
 	dependency.remove();
 	
 	delete window.dependency_query_list[dependency.id];
@@ -794,17 +801,23 @@ function delete_dependency(dependency){
 
 
 function delete_word(word){
+	/**
+	 * This function deletes a word.
+	 * It not only deltes the word from the GUI, the word is also deleted from the global varibales.
+	 * Also, the selected word is shifted to None in the dependdencies. Thus all the dependencies thathave the given word are also removed.
+	 */
 	word.remove();
-
 	delete window.word_query_list[word.id];
 	delete window.word_name_list[word.id];
 	window.word_id_list.splice(window.word_id_list.indexOf(word.id),1);
-	// update_dropdown();
-	// write_query();
 	update_query();	
 }
 
 function delete_property(block,word){
+	/**
+	 * This function is used to delete a property of a word.
+	 * On deleting a property, all other properties(if any) that are in OR with the given word are also removed.
+	 */
 	var prop=block.parentElement.parentElement.parentElement;
 	if(prop.previousElementSibling!=null && prop.previousElementSibling.textContent=="AND"){
 		prop.previousElementSibling.remove();
@@ -817,6 +830,11 @@ function delete_property(block,word){
 }
 
 function inverse(sign,word){
+	/**
+	 * This function is used to inverse the equal to not-equal to and vice versa.
+	 * It is also updated in the corresponding word queries. 
+	 */
+	// check if the sign is equals
 	if(sign.classList.contains("fa-equals")){
 		// if the sign is equals, then change it to not-equals
 		sign.classList.replace("fa-equals","fa-not-equal");
