@@ -138,7 +138,7 @@ $(window).on('load', function () {
             
             link = row['keywords'][0]['link'];
             iri = config["corpora"][config["default"]]["iri"];
-            file_name = link.replace(iri+"/data/","");
+            file_name = link.replace(iri+"data/","");
             file_name = file_name.split("#")[0];
             file_name = file_name.replace(".conll","");
 
