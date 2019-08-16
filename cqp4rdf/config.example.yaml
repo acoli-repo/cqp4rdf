@@ -1,5 +1,5 @@
 grammar: ../cqp.ebnf
-default: armenian-eanc
+default: ud-en
 n_results: 50
 api:
   port: 8088

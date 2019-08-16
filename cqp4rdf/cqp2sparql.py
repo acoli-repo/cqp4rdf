@@ -646,8 +646,9 @@ WHERE
             sparql['var_definitions'].append('\t{var} a nif:Word .'.format(var=var))
             # sparql['var_definitions'].append('\t{var} a nif:Word .'.format(var=var))
 
-            sparql['var_optional'].append('\t' + var + ' conll:WORD ' + var + '_word . ')
-            sparql['var_optional'].append('\t' + var + ' powla:hasParent ' + var + '_parent . ')
+            sparql['var_optional'].append('\t' + var + ' conll:FORM ' + var + '_word . ')
+            sparql['var_optional'].append('\t' + var + ' conll:HEAD* ' + var + '_parent . ')
+            sparql['var_optional'].append('\t' + var + '_parent a nif:Sentence . ')
 
 
         for var in self.hiden_tokens:
@@ -673,10 +674,10 @@ WHERE
             #                                                                          )))
         
         for i, token in enumerate(self.tokens[:-1]):
-                sparql['token_precedence'].append("\t{} powla:nextNode {} .".format(self.tokens[i], self.tokens[i+1]))
+                sparql['token_precedence'].append("\t{} nif:nextWord {} .".format(self.tokens[i], self.tokens[i+1]))
 
         for i, token in enumerate(self.hiden_tokens[:-1]):
-                sparql['token_precedence'].append("\t{} powla:nextNode {} .".format(self.hiden_tokens[i], self.hiden_tokens[i+1]))
+                sparql['token_precedence'].append("\t{} nif:nextWord {} .".format(self.hiden_tokens[i], self.hiden_tokens[i+1]))
 
 
         

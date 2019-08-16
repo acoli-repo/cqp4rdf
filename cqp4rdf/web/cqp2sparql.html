@@ -101,6 +101,7 @@ $(window).on('load', function () {
 
                 $("#result").html(convertData(data['results']));
                 // $("#sparql").html("<pre>" + data['sparql'] + "</pre>");
+                console.log(data['sparql']);
 
                 $('.kwic-word').click(function(event) {
                     event.preventDefault();
