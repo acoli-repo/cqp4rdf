@@ -1,0 +1,23 @@
+version: '3'
+services:
+  fuseki:
+    image: stain/jena-fuseki
+    volumes:
+      - fuseki_data:/fuseki
+    ports:
+      - 3030:3030
+    environment:
+      - ADMIN_PASSWORD=pw123
+
+  cqp4rdf:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8088:8088
+    depends_on:
+      - fuseki
+    environment:
+      - FLASK_ENV= development
+volumes:
+  fuseki_data:
