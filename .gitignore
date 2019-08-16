@@ -2,3 +2,7 @@
 __pycache__
 *.pyc
 
+
+cqp4rdf/config.yaml
+
+cqp4rdf/cqp4rdf.log
