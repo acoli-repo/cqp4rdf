@@ -84,7 +84,7 @@ function update_input_style(element,word){
 				<div class="input-group-prepend row" style="width:100%;margin:0%;">
 					<select class="form-control property_type" onchange="update_input_box(this)" style="width: 100%;border-radius:5px 5px 0 0;">	
 						<option value="None" disabled >Input Style</option>
-						<option value="normal" selected> Normal Text </option>
+						<option value="normal" selected> Exact Match </option>
 						<option value="start">Starts With</option>
 						<option value="end">Ends With</option>
 						<option value="contains">Contains</option>
@@ -403,6 +403,10 @@ function update_word_query(word){
 			alert("2 words have the same variable name. Please correct that to update the query.");
 			return;
 		}
+		else if(Object.values(window.dependency_id_list).includes(var_name)){
+			alert("The variable name is already reserved for including dependencies. Please update the variable name.");
+			return;	
+		}
 		else
 			window.word_name_list[id]=var_name;
 	}
@@ -421,14 +425,14 @@ function write_query(){
 			query1+=window.word_query_list[window.word_id_list[i]]+" ";
 	} 
 	for(i=0;i<window.word_dependency_id_list.length;i++){
-		if(window.word_query_list[window.word_dependency_id_list[i]].trim()!="")
+		if(window.dependency_query_list[window.dependency_id_list[i]]!=undefined && window.word_query_list[window.word_dependency_id_list[i]].trim()!="")
 			query1+=window.word_query_list[window.word_dependency_id_list[i]]+" ";
 	} 
 	
 	query2="";
 	first=true;
 	for(i=0;i<window.dependency_id_list.length;i++){
-		if(window.dependency_query_list[window.dependency_id_list[i]].trim()!=""){
+		if(window.dependency_query_list[window.dependency_id_list[i]]!=undefined && window.dependency_query_list[window.dependency_id_list[i]].trim()!=""){
 			if(first){
 				query2+=" :: ";
 				first=false;
@@ -602,12 +606,12 @@ function add_dependency(add_sequence_dependency=false){
 			    </div>
 			    <div class="card-body row" style="display: flex; align-items: center; justify-content: center; margin: 0%;">
 			    	<div class="col-md-12">
-				        <select class="word_left form-control" onchange="update_dependency_query(d${window.dependencycounter})" style="flex: 1 1 0%; margin: 1%; width: 100%;">
+				        <select class="word_left form-control" onchange="update_query()" style="flex: 1 1 0%; margin: 1%; width: 100%;">
 				            <option value="None" disabled selected>Left Variable</option>
 				        </select>
 			        </div>
 			        <div class="col-md-12">
-			        	<select class="dependency_type form-control col-md-12" onchange="update_dependency_query(d${window.dependencycounter})" style="flex: 1 1 0%; margin: 1%; width: 100%; text-align: center;">
+			        	<select class="dependency_type form-control col-md-12" onchange="update_query()" style="flex: 1 1 0%; margin: 1%; width: 100%; text-align: center;">
 				            <option value="None" disabled selected>Dependency</option>
 				            <optgroup label="Linear">
 				            	<option value="before" selected=${add_sequence_dependency}>Before</option>
@@ -622,14 +626,14 @@ function add_dependency(add_sequence_dependency=false){
 			        	</select>
 			        </div>
 			        <div class="col-md-12">
-				        <select class="proximity form-control col-md-12" onchange="update_dependency_query(d${window.dependencycounter})" style="flex: 1 1 0%; margin: 1%; width: 100%; text-align: center;">
+				        <select class="proximity form-control col-md-12" onchange="update_query()" style="flex: 1 1 0%; margin: 1%; width: 100%; text-align: center;">
 				        	<option value="adjoining" selected=${add_sequence_dependency}>Adjoining</option>
 				        	<option value="range">Range</option>
 				        	<option value="any">Any</option>
 				        </select>
 			        </div>
 			        <div class="col-md-12">
-				        <select class="word_right form-control col-md-12" onchange="update_dependency_query(d${window.dependencycounter})" style="flex: 1 1 0%; margin: 1%; width: 100%;">
+				        <select class="word_right form-control col-md-12" onchange="update_query()" style="flex: 1 1 0%; margin: 1%; width: 100%;">
 				            <option value="None" disabled selected>Right Variable</option>
 				        </select>
 			        </div>
@@ -771,12 +775,14 @@ function update_dependency_query(dependency){
 	}
 	else{
 		$(".btn",dependency)[0].textContent=dependency.id;
+		delete window.dependency_query_list[dependency.id];
 	}
 } 
 
 
 function delete_dependency(dependency){
 	dependency.remove();
+	
 	delete window.dependency_query_list[dependency.id];
 	window.dependency_id_list.splice(window.dependency_id_list.indexOf(dependency.id),1);
 	
