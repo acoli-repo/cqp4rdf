@@ -175,11 +175,12 @@ docker-compose up -d
 TODO
 Describe and show how to run the tests with code examples.
 -->
+<!--
 ## How to use?
 TODO
 If people like your project they’ll want to learn how they can use it. To do so include step by step guide to use your project.
 ==> Here include how to make an instance for their project like cdli
-
+-->
 <!--
 ## Contribute
 TODO
@@ -197,9 +198,10 @@ Some of the possible future improvements:-
 - Florian Stein
 - Ilya Khait
 - Sagar
-
+<!--
 ## License
 TODO
 A short snippet describing the license (MIT, Apache etc)
 
 MIT © [Yourname]()
+-->
