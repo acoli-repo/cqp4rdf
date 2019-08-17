@@ -1,16 +1,28 @@
+# loading the grammar
 grammar: ../cqp.ebnf
+# specify the corpus which we want to use
 default: cdli
+# no. of result that would be shown on 1 page
 n_results: 50
+# host and port where the api would be running  
 api:
   port: 8088
-  host: 127.0.0.1
+  # would be running the flaks app locally
+  host: 127.0.0.1 
+# host, port and the endpoint database name where our SPARQL endpoint is hosted
 sparql:
   host: http://127.0.0.1:3030/
+  # here "test" is the dataset name which we specified 
   endpoint: test/query
+# defining different corpus 
 corpora:
+  # name of the corpus 
   ud-en:
+    # name of the corpus 
     name: Universal Dependencies English (test)
+    # the IRI, over which it would be endered while making the dataset and uploadig the file
     iri: http://acoli.cs.uni-frankfurt.de/corpora/ud-en
+    # all the prefixes which are defined for the SPARQL query
     prefixes:
       conll: http://ufal.mff.cuni.cz/conll2009-st/task-description.html#
       rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
@@ -22,10 +34,15 @@ corpora:
       powla: http://purl.org/powla/powla.owl#
       eanc: http://purl.org/olia/eanc.owl#
       xsd: http://www.w3.org/2001/XMLSchema#
+  # name of the corpus 
   cdli:
+    # name of the corpus 
     name: CDLI
+    # the IRI, over which it would be endered while making the dataset and uploadig the file
     iri: https://github.com/cdli-gh/Multilayer-Annotation-Query-Tool/
+    # the link where the file are hosted, would be linked on the we page
     file-host: https://cdli.ucla.edu/ 
+    # all the prefixes which are defined for the SPARQL query
     prefixes:
       conll: http://ufal.mff.cuni.cz/conll2009-st/task-description.html#
       rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
@@ -37,65 +54,143 @@ corpora:
       powla: http://purl.org/powla/powla.owl#
       eanc: http://purl.org/olia/eanc.owl#
       xsd: http://www.w3.org/2001/XMLSchema#
+    # will have all the fields needed by the corpus
     fields:
-      ID:
+      # field ID
+      ID: 
+        # field name = ID
         name: ID
+        # when being added in the query, this field would be represented like "conll:ID"
         query: conll:ID
+        # decides wheteher the field would be disbaled or would be shown
+        # if disabled=false, then would be shown
+        # if disabled=true, won't be shown
         disabled: false
+        # the type of field = INTEGER , would be showing an integer input box
         type: integer
+        # whether the field is multivalued or not, 
+        # if multivalued = true, then the value of the field would be splitted on the basis of the separator
+        # if multivalued = false, the the exact value would be shown
         multivalued: false
+      # field CDLI_ID
       CDLI_ID:
+        # field name = CDLI_ID
         name: CDLI_ID
+        # when being added in the query, this field would be represented like "conll:CDLI_ID"
         query: conll:CDLI_ID
+        # decides wheteher the field would be disbaled or would be shown
+        # if disabled=false, then would be shown
+        # if disabled=true, won't be shown
         disabled: false
+        # the type of field = SUGGEST, would be suggesting as the user enters in the text box
         type: suggest
+        # whether the field is multivalued or not, 
+        # if multivalued = true, then the value of the field would be splitted on the basis of the separator
+        # if multivalued = false, the the exact value would be shown
         multivalued: false
+        # since the type of annotattion is SUGGEST,these values would be suggested
         values:
           - "o.1.1"
           - "o.1.2"
+      # field FROM
       FORM:
+        # field name = FROM
         name: FORM
+        # when being added in the query, this field would be represented like "conll:FORM"
         query: conll:FORM
+        # decides wheteher the field would be disbaled or would be shown
+        # if disabled=false, then would be shown
+        # if disabled=true, won't be shown
         disabled: false
+        # the type of field = SUGGEST, would be suggesting as the user enters in the text box
         type: suggest
+        # whether the field is multivalued or not, 
+        # if multivalued = true, then the value of the field would be splitted on the basis of the separator
+        # if multivalued = false, the the exact value would be shown
         multivalued: false
+        # since the type of annotattion is SUGGEST,these values would be suggested
         values:
           - "f1"
           - "f2"
+      # field LEMMA
       LEMMA:
+        # field name = LEMMA
         name: LEMMA
+        # when being added in the query, this field would be represented like "conll:LEMMA"
         query: conll:LEMMA
+        # decides wheteher the field would be disbaled or would be shown
+        # if disabled=false, then would be shown
+        # if disabled=true, won't be shown
         disabled: false
+        # the type of field = SUGGEST, would be suggesting as the user enters in the text box
         type: suggest
+        # whether the field is multivalued or not, 
+        # if multivalued = true, then the value of the field would be splitted on the basis of the separator
+        # if multivalued = false, the the exact value would be shown
         multivalued: false
+        # since the type of annotattion is SUGGEST,these values would be suggested
         values:
           - "s1"
           - "s2"
+      # field UPOSTAG
       UPOSTAG:
+        # field name = UPOSTAG
         name: UPOSTAG
+        # when being added in the query, this field would be represented like "conll:UPOSTAG"
         query: conll:UPOSTAG
+        # decides wheteher the field would be disbaled or would be shown
+        # if disabled=false, then would be shown
+        # if disabled=true, won't be shown
         disabled: false
+        # the type of field = LIST, would be showing the values in the dropdown 
         type: list
+        # whether the field is multivalued or not, 
+        # if multivalued = true, then the value of the field would be splitted on the basis of the separator
+        # if multivalued = false, the the exact value would be shown
         multivalued: false
+        # since the type of annotattion is LIST,these values would only be shown in the dropdown
         values:
           - "ADJ"
           - "ADV"
+      # field XPOSTAG
       XPOSTAG:
+        # field name = XPOSTAG
         name: XPOSTAG
+        # when being added in the query, this field would be represented like "conll:XPOSTAG"
         query: conll:XPOSTAG
+        # decides wheteher the field would be disbaled or would be shown
+        # if disabled=false, then would be shown
+        # if disabled=true, won't be shown
         disabled: false
+        # the type of field = LIST, would be showing the values in the dropdown 
         type: list
+        # whether the field is multivalued or not, 
+        # if multivalued = true, then the value of the field would be splitted on the basis of the separator
+        # if multivalued = false, the the exact value would be shown
         multivalued: false
+        # since the type of annotattion is LIST,these values would only be shown in the dropdown
         values:
           - "AJ"
           - "AV"
+      # field FEATS
       FEATS:
+        # field name = FEATS
         name: FEATS
+        # when being added in the query, this field would be represented like "conll:FEATS"
         query: conll:FEATS
+        # decides wheteher the field would be disbaled or would be shown
+        # if disabled=false, then would be shown
+        # if disabled=true, won't be shown
         disabled: false
+        # the type of field = LIST, would be showing the values in the dropdown 
         type: list
+        # whether the field is multivalued or not, 
+        # if multivalued = true, then the value of the field would be splitted on the basis of the separator
+        # if multivalued = false, the the exact value would be shown
         multivalued: true
+        # would be splitting the value on this basis
         separator: "|"
+        # since the type of annotattion is LIST,these values would only be shown in the dropdown
         values:
           - "Case"
           - "Animacy"
