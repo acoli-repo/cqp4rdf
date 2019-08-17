@@ -67,6 +67,11 @@ TODO
 Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
 -->
 ## Installation
+
+There are 2 methods to install, in both the cases, after running the fuseki server, the data has to uploaded on the fuseki server. 
+For that create the database with the name as specified in the `config.yaml` file. 
+Also, when uploading the file, specify the IRI which has been specified in the `config.yaml` file.
+
 ### 1. Running using the docker container 
 1. Create a virtualenv in python
 ```
@@ -147,10 +152,6 @@ python cqp4rdf/main.py
 ./fuseki-server
 ``` 
 
-In both the cases, after running the fuseki server, the data has to uploaded on the fuseki server. 
-For that create the database with the name as specified in the `config.yaml` file. 
-Also, when uploading the file, specify the IRI which has been specified in the `config.yaml` file.
-
 <!-- 
 ## API Reference
 TODO
@@ -174,11 +175,12 @@ docker-compose up -d
 TODO
 Describe and show how to run the tests with code examples.
 -->
+<!--
 ## How to use?
 TODO
 If people like your project they’ll want to learn how they can use it. To do so include step by step guide to use your project.
 ==> Here include how to make an instance for their project like cdli
-
+-->
 <!--
 ## Contribute
 TODO
@@ -196,9 +198,10 @@ Some of the possible future improvements:-
 - Florian Stein
 - Ilya Khait
 - Sagar
-
+<!--
 ## License
 TODO
 A short snippet describing the license (MIT, Apache etc)
 
 MIT © [Yourname]()
+-->
