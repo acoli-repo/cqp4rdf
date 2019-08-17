@@ -68,7 +68,7 @@ Show what the library does as concisely as possible, developers should be able t
 -->
 ## Installation
 
-In both the cases, after running the fuseki server, the data has to uploaded on the fuseki server. 
+There are 2 methods to install, in both the cases, after running the fuseki server, the data has to uploaded on the fuseki server. 
 For that create the database with the name as specified in the `config.yaml` file. 
 Also, when uploading the file, specify the IRI which has been specified in the `config.yaml` file.
 
