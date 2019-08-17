@@ -67,6 +67,11 @@ TODO
 Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
 -->
 ## Installation
+
+In both the cases, after running the fuseki server, the data has to uploaded on the fuseki server. 
+For that create the database with the name as specified in the `config.yaml` file. 
+Also, when uploading the file, specify the IRI which has been specified in the `config.yaml` file.
+
 ### 1. Running using the docker container 
 1. Create a virtualenv in python
 ```
@@ -146,10 +151,6 @@ python cqp4rdf/main.py
 ```
 ./fuseki-server
 ``` 
-
-In both the cases, after running the fuseki server, the data has to uploaded on the fuseki server. 
-For that create the database with the name as specified in the `config.yaml` file. 
-Also, when uploading the file, specify the IRI which has been specified in the `config.yaml` file.
 
 <!-- 
 ## API Reference
