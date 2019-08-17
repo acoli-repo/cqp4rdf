@@ -180,9 +180,9 @@ Some of the possible future improvements:-
 
 ## Credits
 - Max Ionov
-- Prof Name
-- Ilya Khaith
-- Sagar 
+- Florian Stein
+- Ilya Khait
+- Sagar
 
 ## License
 TODO
