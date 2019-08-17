@@ -158,7 +158,7 @@ TODO
 Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For the medium size, to larger projects, it is important to at least provide a link to where the API reference docs live.
 -->
 
-## Direct Deployment
+## Deployment
 
 Since we have the docker containers, the app can be directly deployed.
 All the instructions are same as that of running the docker container.
@@ -202,6 +202,5 @@ Some of the possible future improvements:-
 ## License
 TODO
 A short snippet describing the license (MIT, Apache etc)
-
 MIT © [Yourname]()
 -->
