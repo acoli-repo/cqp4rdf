@@ -898,13 +898,19 @@ function update_dependency_query(dependency){
 	 * and would be replaced by the dependency id on the top bar of the dependency. 
 	 */
 	
-	// get the left word in the dependency
+	// get the left word in the dependency dropdown element
 	left=$(".word_left",dependency)[0];
 	
+	// get the dependency type dropdown element
 	dependency_type=$(".dependency_type",dependency)[0];
+	
+	// get the proximity type dropdown element
 	proximity=$(".proximity",dependency)[0];
+	
+	// get the right word dropdown element
 	right=$(".word_right",dependency)[0];
 
+	// show the slider only if the proximilty is range
 	if(proximity.value =="range"){
 		$(".slider",dependency).show();
 		from=$(".left_value",dependency)[0].textContent;
@@ -914,13 +920,16 @@ function update_dependency_query(dependency){
 		$(".slider",dependency).hide();
 	}
 
+	// only if the left word, right word and the dependency type all are selected 
 	if(left.value!="None" && dependency_type.value!="None" && right.value!="None"){
 
+		// get the value for all the 4 dropdowns
 		l=window.word_name_list[left.value.split(":")[0].trim()];
 		r=window.word_name_list[right.value.split(":")[0].trim()];
 		d=dependency_type.value.trim();
 		p=proximity.value.trim();
 		
+		// update the distance, as per the range selceted
 		dist="";
 		if(p=="range"){
 			dist=`{${from},${to}}`;
@@ -929,53 +938,81 @@ function update_dependency_query(dependency){
 			dist="*";
 		}
 		
+		// if the dependency is linear->before
 		if(d=="before"){
+			// if the proximity is adjoining, add the nextword dependency => l->r
 			if(p=="adjoining")
 				query=`(${l}.nif:nextWord=${r})`;
+			
+			// else, a new dummy word is added and dependencies are added using that 
 			else
 				query=`(${l}.nif:nextWord=${dependency.id} & ${dependency.id}.nif:nextWord=${r})`;
 		}
+		// if the dependency is linear->after
 		else if(dependency_type.value=="after"){
+			// if the proximity is adjoining, add the nextword dependency => r->l
 			if(p=="adjoining")
 				query=`(${r}.nif:nextWord=${l})`;
+			
+			// else, a new dummy word is added and dependencies are added using that
 			else
 				query=`(${r}.nif:nextWord=${dependency.id} & ${dependency.id}.nif:nif:nextWord=${l})`;
 		}
+		// if the dependency is linear-> before/after
 		else if(dependency_type.value=="before_after"){
+			// if the proximity is adjoining, the nextword.before and nextword.after dependencies are added in OR
 			if(p=="adjoining")
 				query=`(${l}.nif:nextWord=${r} | ${r}.nif:nextWord=${l})`;
+			// else, a new dummy word is added and dependencies are added 
 			else
 				query=`((${l}.nif:nextWord=${dependency.id} & ${dependency.id}.nif:nextWord=${r}) | (${r}.nif:nextWord=${dependency.id} & ${dependency.id}.nif:nextWord=${l}))`;
 		}
+		// if the dependency is syntatic-> head
 		else if(dependency_type.value=="head"){
+			// if the proximity is adjoining, the words are added with conll:HEAD, from l to r
 			if(p=="adjoining")
 				query=`(${l}.conll:HEAD=${r})`;
+			// else, a new dummy word is added and the conll:HEAD dependency is added using the dummy word
 			else
 				query=`(${l}.conll:HEAD=${dependency.id} & ${dependency.id}.conll:HEAD=${r})`;
 		}
+		// if the dependency is syntatic-> child
 		else if(dependency_type.value=="child"){
+			// if the proximity is adjoining, the words are added with conll:HEAD , from r to l
 			if(p=="adjoining")
 				query=`(${r}.conll:HEAD=${l})`;
+			// else, a new dummy word is added and the conll:HEAD dependency is added using the dummy word
 			else
 				query=`(${r}.conll:HEAD=${dependency.id} & ${dependency.id}.conll:HEAD=${l})`;
 		}
+		// if the dependency is syntatic-> head_child
 		else if(dependency_type.value=="head_child"){
+			// if the proximity is adjoining, the words are added with HEAD dependency, the left.HEAD=right and right.HEAD=left are in OR
 			if(p=="adjoining")
 				query=`(${l}.conll:HEAD=${r} | ${r}.conll:HEAD=${l})`;
-			else
-				query=`((${l}.conll:HEAD=${dependency.id} & ${dependency.id}.conll:HEAD=${r}) | (${r}.nif:nextWord=${dependency.id} & ${dependency.id}.nif:nextWord=${l}))`;
-		}		
-		if(p!="adjoining" && !window.word_dependency_id_list.includes(`${dependency.id}`))
-			window.word_dependency_id_list.push(`${dependency.id}`);
+			// TODO=> have to add some way to figre this out for {2 words in the same parse tree, eith head or chind with any number of nodes in bwtween} 
+			// else
+			// 	query=`((${l}.conll:HEAD=${dependency.id} & ${dependency.id}.conll:HEAD=${r}) | (${r}.nif:nextWord=${dependency.id} & ${dependency.id}.nif:nextWord=${l}))`;
+		}
 		
+		//  adding the new word which would be added, if we have a range query, for which we would be adding new dependency word
+		// update in the global variables
+		if(p!="adjoining" && !window.word_dependency_id_list.includes(`${dependency.id}`)){
+			window.word_dependency_id_list.push(`${dependency.id}`);
+		}
 		if(p!="adjoining"){
 			window.word_query_list[`${dependency.id}`]=`${dependency.id}:[]${dist}`;
 		}
 
+		// updating the gloable variables
 		window.dependency_query_list[dependency.id]=query;
 
+		// write the dependency on the top collapse bar
 		$(".btn",dependency)[0].textContent=query;
 	}
+
+	// else, if one of the dropdowns is selected as None, then the query won't be formed 
+	// and the collapse bar would only show the corresponding dependency id
 	else{
 		$(".btn",dependency)[0].textContent=dependency.id;
 		delete window.dependency_query_list[dependency.id];
@@ -990,7 +1027,7 @@ function delete_dependency(dependency){
 	 * and its corresponding query is removed from the global variables. 
 	 */
 	
-	// delete the dependency bo from the GUI
+	// delete the dependency box from the GUI
 	dependency.remove();
 	
 	// delete the dependency from the global variabbles
