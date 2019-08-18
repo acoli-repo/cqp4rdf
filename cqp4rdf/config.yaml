@@ -1,0 +1,101 @@
+grammar: ../cqp.ebnf
+default: cdli
+n_results: 50
+api:
+  port: 8088
+  host: 0.0.0.0
+sparql:
+  host: http://fuseki:3030/
+  endpoint: test/query
+corpora:
+  ud-en:
+    name: Universal Dependencies English (test)
+    iri: http://acoli.cs.uni-frankfurt.de/corpora/ud-en
+    prefixes:
+      conll: http://ufal.mff.cuni.cz/conll2009-st/task-description.html#
+      rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+      terms: http://purl.org/acoli/open-ie/
+      nif: http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#
+      rdfs: http://www.w3.org/2000/01/rdf-schema#
+      system: http://purl.org/olia/system.owl#
+      olia:  http://purl.org/olia/olia.owl#
+      powla: http://purl.org/powla/powla.owl#
+      eanc: http://purl.org/olia/eanc.owl#
+      xsd: http://www.w3.org/2001/XMLSchema#
+  cdli:
+    name: CDLI
+    iri: https://github.com/cdli-gh/Multilayer-Annotation-Query-Tool/
+    file-host: https://cdli.ucla.edu/ 
+    prefixes:
+      conll: http://ufal.mff.cuni.cz/conll2009-st/task-description.html#
+      rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+      terms: http://purl.org/acoli/open-ie/
+      nif: http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#
+      rdfs: http://www.w3.org/2000/01/rdf-schema#
+      system: http://purl.org/olia/system.owl#
+      olia:  http://purl.org/olia/olia.owl#
+      powla: http://purl.org/powla/powla.owl#
+      eanc: http://purl.org/olia/eanc.owl#
+      xsd: http://www.w3.org/2001/XMLSchema#
+    fields:
+      ID:
+        name: ID
+        query: conll:ID
+        disabled: false
+        type: integer
+        multivalued: false
+      CDLI_ID:
+        name: CDLI_ID
+        query: conll:CDLI_ID
+        disabled: false
+        type: suggest
+        multivalued: false
+        values:
+          - "o.1.1"
+          - "o.1.2"
+      FORM:
+        name: FORM
+        query: conll:FORM
+        disabled: false
+        type: suggest
+        multivalued: false
+        values:
+          - "f1"
+          - "f2"
+      LEMMA:
+        name: LEMMA
+        query: conll:LEMMA
+        disabled: false
+        type: suggest
+        multivalued: false
+        values:
+          - "s1"
+          - "s2"
+      UPOSTAG:
+        name: UPOSTAG
+        query: conll:UPOSTAG
+        disabled: false
+        type: list
+        multivalued: false
+        values:
+          - "ADJ"
+          - "ADV"
+      XPOSTAG:
+        name: XPOSTAG
+        query: conll:XPOSTAG
+        disabled: false
+        type: list
+        multivalued: false
+        values:
+          - "AJ"
+          - "AV"
+      FEATS:
+        name: FEATS
+        query: conll:FEATS
+        disabled: false
+        type: list
+        multivalued: true
+        separator: "|"
+        values:
+          - "Case"
+          - "Animacy"
