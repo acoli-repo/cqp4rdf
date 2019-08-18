@@ -1,0 +1,96 @@
+#new_text=P432208
+#ID	CDLI_ID	FORM	LEMMA	UPOSTAG	XPOSTAG	FEATS	HEAD	DEPREL	DEPS	MISC
+@prefix :      <https://github.com/cdli-gh/Multilayer-Annotation-Query-Tool/data/P432208.conll#> .
+@prefix terms: <http://purl.org/acoli/open-ie/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix conll: <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+
+:s1_1   a              nif:Word ;
+        nif:nextWord   :s1_2 ;
+        conll:CDLI_ID  "a.1.1" ;
+        conll:FEATS    "Animacy=Hum|Number=Sing" ;
+        conll:FORM     "szul-gi" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "1" ;
+        conll:LEMMA    "Szulgir[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "RN" .
+
+:s1_6   a              nif:Word ;
+        nif:nextWord   :s1_7 ;
+        conll:CDLI_ID  "a.4.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "lugal" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "6" ;
+        conll:LEMMA    "lugal[king]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_4   a              nif:Word ;
+        nif:nextWord   :s1_5 ;
+        conll:CDLI_ID  "a.3.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "lugal" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "4" ;
+        conll:LEMMA    "lugal[king]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_2   a              nif:Word ;
+        nif:nextWord   :s1_3 ;
+        conll:CDLI_ID  "a.2.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "nita" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "2" ;
+        conll:LEMMA    "nita[male]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_7   a              nif:Word ;
+        nif:nextWord   :s1_8 ;
+        conll:CDLI_ID  "a.4.2" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "ki-en-gi" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "7" ;
+        conll:LEMMA    "ki'engi[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "GN" .
+
+:s1_0   a       nif:Sentence .
+
+:s1_5   a              nif:Word ;
+        nif:nextWord   :s1_6 ;
+        conll:CDLI_ID  "a.3.2" ;
+        conll:FEATS    "Case=Gen|Number=Sing" ;
+        conll:FORM     "uri5{ki}-ma" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "5" ;
+        conll:LEMMA    "Urim[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "SN" .
+
+:s1_3   a              nif:Word ;
+        nif:nextWord   :s1_4 ;
+        conll:CDLI_ID  "a.2.2" ;
+        conll:FORM     "kal-ga" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "3" ;
+        conll:LEMMA    "kalag[strong]" ;
+        conll:UPOSTAG  "VERB" ;
+        conll:XPOSTAG  "V" .
+
+:s1_8   a              nif:Word ;
+        conll:CDLI_ID  "a.4.3" ;
+        conll:FEATS    "Case=Gen|Number=Sing" ;
+        conll:FORM     "ki-uri" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "8" ;
+        conll:LEMMA    "ki'uri[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "GN" .

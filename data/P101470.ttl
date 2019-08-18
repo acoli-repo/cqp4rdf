@@ -1,0 +1,60 @@
+#new_text=P101470
+#ID	CDLI_ID	FORM	LEMMA	UPOSTAG	XPOSTAG	FEATS	HEAD	DEPREL	DEPS	MISC
+@prefix :      <https://github.com/cdli-gh/Multilayer-Annotation-Query-Tool/data/P101470.conll#> .
+@prefix terms: <http://purl.org/acoli/open-ie/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix conll: <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+
+:s1_5   a              nif:Word ;
+        conll:CDLI_ID  "o.2.3" ;
+        conll:FEATS    "Case=Abs|Number=Sing" ;
+        conll:FORM     "sar" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "5" ;
+        conll:LEMMA    "sar[unit]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_3   a              nif:Word ;
+        nif:nextWord   :s1_4 ;
+        conll:CDLI_ID  "o.2.1" ;
+        conll:FEATS    "Case=Abs|Animacy=Nhum|Number=Sing" ;
+        conll:FORM     "ki-la2-bi" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "3" ;
+        conll:LEMMA    "kila[size]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_1   a              nif:Word ;
+        nif:nextWord   :s1_2 ;
+        conll:CDLI_ID  "o.1.1" ;
+        conll:FORM     "x" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "1" ;
+        conll:LEMMA    "_[_]" .
+
+:s1_4   a              nif:Word ;
+        nif:nextWord   :s1_5 ;
+        conll:CDLI_ID  "o.2.2" ;
+        conll:FORM     "1/3(disz)" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "4" ;
+        conll:LEMMA    "1/3(disz)[one]" ;
+        conll:UPOSTAG  "NUM" ;
+        conll:XPOSTAG  "NU" .
+
+:s1_2   a              nif:Word ;
+        nif:nextWord   :s1_3 ;
+        conll:CDLI_ID  "o.1.2" ;
+        conll:FEATS    "Case=Abs|Number=Sing" ;
+        conll:FORM     "{gi}murux(|KID.SZU2.MA2|)" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "2" ;
+        conll:LEMMA    "muru[mat]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_0   a       nif:Sentence .

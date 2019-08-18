@@ -1,0 +1,20 @@
+#new_text=P456883
+#ID	CDLI_ID	FORM	LEMMA	UPOSTAG	XPOSTAG	FEATS	HEAD	DEPREL	DEPS	MISC
+@prefix :      <https://github.com/cdli-gh/Multilayer-Annotation-Query-Tool/data/P456883.conll#> .
+@prefix terms: <http://purl.org/acoli/open-ie/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix conll: <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+
+:s1_1   a              nif:Word ;
+        conll:CDLI_ID  "a.1.1" ;
+        conll:FEATS    "Animacy=Hum|Number=Sing" ;
+        conll:FORM     "szu-esz18-dar" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "1" ;
+        conll:LEMMA    "Szu'eszdar[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "PN" .
+
+:s1_0   a       nif:Sentence .

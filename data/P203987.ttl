@@ -1,0 +1,284 @@
+#new_text=P203987
+#ID	CDLI_ID	FORM	LEMMA	UPOSTAG	XPOSTAG	FEATS	HEAD	DEPREL	DEPS	MISC
+@prefix :      <https://github.com/cdli-gh/Multilayer-Annotation-Query-Tool/data/P203987.conll#> .
+@prefix terms: <http://purl.org/acoli/open-ie/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix conll: <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+
+:s1_23  a              nif:Word ;
+        nif:nextWord   :s1_24 ;
+        conll:CDLI_ID  "r.6.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "mu" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "23" ;
+        conll:LEMMA    "mu[year]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_1   a              nif:Word ;
+        nif:nextWord   :s1_2 ;
+        conll:CDLI_ID  "o.1.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "pisan-dub-ba" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "1" ;
+        conll:LEMMA    "bisagdubak[filing_basket]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_7   a              nif:Word ;
+        nif:nextWord   :s1_8 ;
+        conll:CDLI_ID  "o.4.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "giri3" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "7" ;
+        conll:LEMMA    "giri[foot]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_13  a              nif:Word ;
+        nif:nextWord   :s1_14 ;
+        conll:CDLI_ID  "o.6.2" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "sze-il2-la-sze3" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "13" ;
+        conll:LEMMA    "Sze'illa[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "MN" .
+
+:s1_19  a              nif:Word ;
+        nif:nextWord   :s1_20 ;
+        conll:CDLI_ID  "r.3.2" ;
+        conll:FEATS    "Case=Gen|Number=Sing" ;
+        conll:FORM     "ki-nu-nir{ki}" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "19" ;
+        conll:LEMMA    "Kinunir[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "SN" .
+
+:s1_22  a              nif:Word ;
+        nif:nextWord   :s1_23 ;
+        conll:CDLI_ID  "r.5.1" ;
+        conll:FEATS    "Verb Form=Fin|Person=3|Number=Sing" ;
+        conll:FORM     "i3-gal2" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "22" ;
+        conll:LEMMA    "ni]" ;
+        conll:UPOSTAG  "VERB" ;
+        conll:XPOSTAG  "V" .
+
+:s1_0   a       nif:Sentence .
+
+:s1_6   a              nif:Word ;
+        nif:nextWord   :s1_7 ;
+        conll:CDLI_ID  "o.3.3" ;
+        conll:FEATS    "Case=Abs|Number=Sing" ;
+        conll:FORM     "i3" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "6" ;
+        conll:LEMMA    "i[oil]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_12  a              nif:Word ;
+        nif:nextWord   :s1_13 ;
+        conll:CDLI_ID  "o.6.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "iti" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "12" ;
+        conll:LEMMA    "iti[month]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_18  a              nif:Word ;
+        nif:nextWord   :s1_19 ;
+        conll:CDLI_ID  "r.3.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "sza3" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "18" ;
+        conll:LEMMA    "szag[heart]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_21  a              nif:Word ;
+        nif:nextWord   :s1_22 ;
+        conll:CDLI_ID  "r.4.2" ;
+        conll:FEATS    "Case=Gen|Number=Sing" ;
+        conll:FORM     "ki-ma-da-sal4-la{ki}" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "21" ;
+        conll:LEMMA    "Kimadasalla[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "SN" .
+
+:s1_5   a              nif:Word ;
+        nif:nextWord   :s1_6 ;
+        conll:CDLI_ID  "o.3.2" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "zi3" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "5" ;
+        conll:LEMMA    "zid[flour]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_11  a              nif:Word ;
+        nif:nextWord   :s1_12 ;
+        conll:CDLI_ID  "o.5.3" ;
+        conll:FEATS    "Case=Abl|Number=Sing" ;
+        conll:FORM     "sze-sag11-ku5-ta" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "11" ;
+        conll:LEMMA    "Szesagku[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "MN" .
+
+:s1_17  a              nif:Word ;
+        nif:nextWord   :s1_18 ;
+        conll:CDLI_ID  "r.2.2" ;
+        conll:FEATS    "Case=Gen|Number=Sing" ;
+        conll:FORM     "gu2-ab-ba{ki}" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "17" ;
+        conll:LEMMA    "Gu'abba[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "SN" .
+
+:s1_20  a              nif:Word ;
+        nif:nextWord   :s1_21 ;
+        conll:CDLI_ID  "r.4.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "sza3" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "20" ;
+        conll:LEMMA    "szag[heart]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_4   a              nif:Word ;
+        nif:nextWord   :s1_5 ;
+        conll:CDLI_ID  "o.3.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "kasz" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "4" ;
+        conll:LEMMA    "kasz[beer]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_10  a              nif:Word ;
+        nif:nextWord   :s1_11 ;
+        conll:CDLI_ID  "o.5.2" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "diri" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "10" ;
+        conll:LEMMA    "diri[excess]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_16  a              nif:Word ;
+        nif:nextWord   :s1_17 ;
+        conll:CDLI_ID  "r.2.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "sza3" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "16" ;
+        conll:LEMMA    "szag[heart]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_25  a              nif:Word ;
+        conll:CDLI_ID  "r.6.3" ;
+        conll:FEATS    "Person=3|Number=Sing|Voice=Mid" ;
+        conll:FORM     "ba-hul" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "25" ;
+        conll:LEMMA    "hulu[destroy]" ;
+        conll:UPOSTAG  "VERB" ;
+        conll:XPOSTAG  "V" .
+
+:s1_3   a              nif:Word ;
+        nif:nextWord   :s1_4 ;
+        conll:CDLI_ID  "o.2.2" ;
+        conll:FEATS    "Case=Gen|Number=Sing" ;
+        conll:FORM     "{kusz}du10-gan-na" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "3" ;
+        conll:LEMMA    "duggan[leather_bag]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_9   a              nif:Word ;
+        nif:nextWord   :s1_10 ;
+        conll:CDLI_ID  "o.5.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "iti" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "9" ;
+        conll:LEMMA    "iti[month]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_15  a              nif:Word ;
+        nif:nextWord   :s1_16 ;
+        conll:CDLI_ID  "r.1.2" ;
+        conll:FEATS    "Case=Gen" ;
+        conll:FORM     "2(disz)-kam" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "15" ;
+        conll:LEMMA    "2(disz)[one]" ;
+        conll:UPOSTAG  "NUM" ;
+        conll:XPOSTAG  "NU" .
+
+:s1_24  a              nif:Word ;
+        nif:nextWord   :s1_25 ;
+        conll:CDLI_ID  "r.6.2" ;
+        conll:FEATS    "Case=Abs|Number=Sing" ;
+        conll:FORM     "ha-ar-szi{ki}" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "24" ;
+        conll:LEMMA    "Harszi[1]" ;
+        conll:UPOSTAG  "PROPN" ;
+        conll:XPOSTAG  "SN" .
+
+:s1_2   a              nif:Word ;
+        nif:nextWord   :s1_3 ;
+        conll:CDLI_ID  "o.2.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "sza3" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "2" ;
+        conll:LEMMA    "szag[heart]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_8   a              nif:Word ;
+        nif:nextWord   :s1_9 ;
+        conll:CDLI_ID  "o.4.2" ;
+        conll:FEATS    "Case=Gen|Number=Plur" ;
+        conll:FORM     "kas4-ke4-ne" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "8" ;
+        conll:LEMMA    "kasz[runner]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
+
+:s1_14  a              nif:Word ;
+        nif:nextWord   :s1_15 ;
+        conll:CDLI_ID  "r.1.1" ;
+        conll:FEATS    "Number=Sing" ;
+        conll:FORM     "iti" ;
+        conll:HEAD     :s1_0 ;
+        conll:ID       "14" ;
+        conll:LEMMA    "iti[month]" ;
+        conll:UPOSTAG  "NOUN" ;
+        conll:XPOSTAG  "N" .
