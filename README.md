@@ -157,8 +157,42 @@ python cqp4rdf/main.py
 TODO
 Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For the medium size, to larger projects, it is important to at least provide a link to where the API reference docs live.
 -->
+## Configuring the `config.yaml` file
 
-## Direct Deployment
+All the fields in the `config.yaml` files have already been commented. 
+Here we would be explainign the most important thing in setting the `config.yaml`, i.e. the fields that we are specifying in the corpus.
+For eg:-
+```
+ FEATS:
+   name: FEATS
+   query: conll:FEATS
+   disabled: false
+   type: list
+   multivalued: true
+   separator: "|"
+   values:
+     - "Case"
+     - "Animacy"
+```
+This is one of the field, which has various options:-
+- **name**:- This specifies the name of the field.
+- **query**:- When being added in the query, this field would be represented like "conll:FEATS".
+- **disabled**:- This option refers to the whether the field has to disabled or enabled. 
+    - `disabled=True`:- it means that the field is disabled and would be ignored. 
+    - `disabled=False`:- it means that the field is not disabled and would not be ignored.
+- **type**:- This option refers to the type of field.
+    - `type = list`:- would be showing the values in the dropdown
+    - `type = suggest`:- would be suggesting the values 
+    - `type = integer`:- would be having an input box with only integers allowed
+- **multivalued**:- This option refers whether that field has mutiple values or not. WOuld be used when showing the info for the word.
+    - `multivalued = true`:- would be referring that the field can have multiple values.
+    - `multivalued = false`:- would be referring that the field does not have multiple values.
+- **separator**:- The value of the separator would be used to separate the values for a field, if the field has multiple values. Used when showing the word info for the retrieved sentences. *It option is only required when `mulivalued=true`*
+- **values**:- *This option is only required when the `type=list` or the `type=suggest`.* This option is a list, which would would be containing the value to be suggetsed or in the dropdown.
+    - if `type=list`, then these values would be shown in the dropdown.
+    - if `type=suggest`, then these values would be suggested in the text box.
+
+## Deployment
 
 Since we have the docker containers, the app can be directly deployed.
 All the instructions are same as that of running the docker container.
@@ -202,6 +236,5 @@ Some of the possible future improvements:-
 ## License
 TODO
 A short snippet describing the license (MIT, Apache etc)
-
 MIT © [Yourname]()
 -->
