@@ -92,52 +92,52 @@ Then we have the PROXIMITY Dropdown, that is used to specify the distance betwee
 
 ## FAQ’s
 
-#### What do we mean by a word in a query?
+- #### What do we mean by a word in a query?
     
 
 By a word, we mean to refer to a word in the sentence. The properties specified here for the word might be used to match the words in the sentence. For eg:- w1:[ ], here w1 refers to all the words in a sentence since we have not specified any constraints/properties for it. Now if we do w1:[conll:UPOSTAG = ”NOUN”], then it would refer to all the words that are NOUN in a sentence since we have specified a constraint here.
 
-####  What do we mean by dependency in a query?
+- ####  What do we mean by dependency in a query?
     
 
 In a query, the dependencies are specified separately after `::`. Dependency refers to how the 2 words in a query are linked. We currently have 2 types of dependencies, the `nextWord` Dependency and the `HEAD` dependency. The `nextWord` dependency means that the second word is the next word to the first word. The `HEAD` dependency means that the second word is the parent of the first word in the semantic tree.
 
-#### Are the words in a linear dependency by default?
+- #### Are the words in a linear dependency by default?
     
 
 In a CQP query, like `w1:[] w2:[]`, by default it means that the words are in a linear dependency. But we have removed this constraint and now this can refer to any 2 words in a sentence. If we want to maintain the linearity between the 2 words then, we have to add a `nextWord` dependency between the 2 words. In order, for the convenience of the users, as more words are added, a `nextWord` dependency is added between them by default.
 
-####  What do we need a variable name for words?
+- ####  What do we need a variable name for words?
     
 
 The variable name of a word is needed, and it is very important in our case. A variable name is very necessary to have for the words. It helps is specifying the dependencies for that particular word. Also, since we are not following the rule of CQP that the words by default are in Linear Order, then we have to specify the `nextWord` dependency, in order to maintain the linearity b/w the words and for specifying the dependencies we need to give every word a variable name.
 
-####   Does a word added really represents a single word or can they be used to specify more than 1 word?
+- ####   Does a word added really represents a single word or can they be used to specify more than 1 word?
     
 
 A word added, does not necessarily represent a single word, it can be used to represent a set of words in a range. For eg: consider the query=>`w1:[conll:UPOSTAG=”NOUN”]` means a single word. But we can also specify the range for a word like `w1:[conll:UPOSTAG=”NOUN”]{2,5}` means 2 to 5 words that are NOUN and continuous.
 
-####   How to add various conditions and properties related to a word?
+- ####   How to add various conditions and properties related to a word?
     
 
 We can add various properties to a word using the GUI, by adding `ADD PROPERTY` button. This will add all the properties and they all would be in AND with each other. Also, more properties can be added in OR by pressing the OR button for a specific property.
 
--   How are the properties of a word linked? Are they all in OR or in AND?
+- #### How are the properties of a word linked? Are they all in OR or in AND?
     
 
 The properties of a word can be linked in both OR as well as in AND. When we add new properties, they are added in AND, by default and when we want to add more properties in OR, it can be added using the OR button which we have.
 
-#### Can we delete a word or a dependency?
+- #### Can we delete a word or a dependency?
     
 
 Yes, we can delete both Word as well as a Dependency. We have a delete button for both.  Deleting a Word would delete it from the query as well. Also, all the dependencies that have that particular word in it would not be a part of the query.
 
-#### Can we delete conditions?
+- #### Can we delete conditions?
     
 
 Yes, we have a DELETE button, which will delete the properties/conditions which we specify for a word. If we delete, it would delete all the conditions that are present in OR with this condition. Also, another way, so that a property is not considered is that, to leave it blank. All the properties where the value is blank are not considered.
 
-#### Are 2 words linked by any dependency by default?
+- #### Are 2 words linked by any dependency by default?
     
 
 By default, as we add more words, the words get linked by a `nextWord` dependency by default in order that the new word follows the previous word. This is just to make sure that the words are linear. If we want to remove this constraint, we can delete the dependency box.
