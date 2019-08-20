@@ -801,7 +801,7 @@ function add_dependency(add_sequence_dependency=false){
 				            <optgroup label="Linear">
 				            	<option value="before" selected=${add_sequence_dependency}>Before</option>
 				            	<option value="after">After</option>
-				            	<option value="before_after" disabled>Before/After</option>
+				            	<option value="before_after">Before/After</option>
 				            </optgroup>
 				            <optgroup label="Syntactic">
 				            	<option value="head">Head</option>
