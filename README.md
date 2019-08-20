@@ -232,9 +232,7 @@ Some of the possible future improvements:-
 - Florian Stein
 - Ilya Khait
 - Sagar
-<!--
+
 ## License
-TODO
-A short snippet describing the license (MIT, Apache etc)
-MIT © [Yourname]()
--->
+This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/acoli-repo/cqp4rdf/blob/master/LICENSE) file for details.
+
