@@ -52,7 +52,10 @@ corpora:
         multivalued: false
         values:
           - "o.1.1"
-          - "o.1.2"
+          - "r.3.5"
+          - "l.1.1"
+          - "s1.col1.1.1"
+          - "s1.2.1"
       FORM:
         name: FORM
         query: conll:FORM
@@ -60,8 +63,12 @@ corpora:
         type: suggest
         multivalued: false
         values:
-          - "f1"
-          - "f2"
+          - "udu"
+          - "sze"
+          - "lugal"
+          - "lu2"
+          - "mu"
+          - "mu-na-du3"
       LEMMA:
         name: LEMMA
         query: conll:LEMMA
@@ -69,8 +76,12 @@ corpora:
         type: suggest
         multivalued: false
         values:
-          - "s1"
-          - "s2"
+          - "udu"
+          - "sze"
+          - "lugal"
+          - "lu2"
+          - "mu"
+          - "du3"
       UPOSTAG:
         name: UPOSTAG
         query: conll:UPOSTAG
@@ -79,7 +90,15 @@ corpora:
         multivalued: false
         values:
           - "ADJ"
+          - "ADP"
           - "ADV"
+          - "CCONJ"
+          - "DET"
+          - "INTJ"
+          - "NUM"
+          - "NOUN"
+          - "PROPN"
+          - "VERB"
       XPOSTAG:
         name: XPOSTAG
         query: conll:XPOSTAG
@@ -89,6 +108,29 @@ corpora:
         values:
           - "AJ"
           - "AV"
+          - "NU"
+          - "CNJ"
+          - "DET"
+          - "J"
+          - "N"
+          - "V"
+          - "PRP"
+          - "DN"
+          - "EN"
+          - "GN"
+          - "MN"
+          - "PN"
+          - "RN"
+          - "SN"
+          - "TN"
+          - "WN"
+          - "AN"
+          - "CN"
+          - "FN"
+          - "LN"
+          - "ON"
+          - "QN"
+          - "YN"
       FEATS:
         name: FEATS
         query: conll:FEATS
@@ -97,5 +139,21 @@ corpora:
         multivalued: true
         separator: "|"
         values:
-          - "Case"
-          - "Animacy"
+          - Animacy=Hum
+          - Animacy=Nhum
+          - Case=Abs
+          - Case=Gen
+          - Case=Erg
+          - Case=Abl
+          - Number=Plur
+          - Number=Sing
+          - Aspect=Prosp
+          - Mood=Opt
+          - Person=0
+          - Person=1
+          - Person=2
+          - Person=3
+          - Person=4
+          - Polarity=Opt
+          - Verb Form=Fin
+          - Voice=Mid
