@@ -67,11 +67,14 @@ TODO
 Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
 -->
 ## Installation
+
+For CDLI version, the docker version of config file has been made the default config.yaml file.
+
 ### 1. Running using the docker container 
 1. Install `docker` and `docker-compose` .
 2. Clone the repository 
 ```
-git clone https://github.com/acoli-repo/cqp4rdf 
+git clone https://github.com/cdli-gh/cqp4rdf 
 ```
 3. Shift to the CQP4RDF repository
 ```
@@ -109,7 +112,7 @@ source cqp4rdf_env/bin/activate
 ```
 3. Clone the repository 
 ```
-git clone https://github.com/acoli-repo/cqp4rdf 
+git clone https://github.com/cdli-gh/cqp4rdf 
 ```
 4. Shift to the CQP4RDF repository
 ```
@@ -136,6 +139,9 @@ python cqp4rdf/main.py
 TODO
 Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For the medium size, to larger projects, it is important to at least provide a link to where the API reference docs live.
 -->
+
+Also the RDF data files in form of `.ttl` files have been added in the `/data` folder.
+Once the fuseki server is up, all these files can be uploaded to the database with configurations as in `config.yaml` file. 
 
 ## Direct Deployment
 We also have a separate docker file hosted on docker hub so that everything can be deployed easily.
