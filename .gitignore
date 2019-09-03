@@ -1,8 +1,9 @@
 .idea
 __pycache__
 *.pyc
-
-
+# ignore the working config file (we want only examples to be in repository)
 cqp4rdf/config.yaml
-
-cqp4rdf/cqp4rdf.log
+# ignore the cqp4rdf.log and cqp4rdf/cqp4rdf.log
+*.log
+# Ignore Mac system files
+.DS_store

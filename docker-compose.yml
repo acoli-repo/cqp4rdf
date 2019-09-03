@@ -1,0 +1,48 @@
+# version number of docker-compose file
+version: '3'
+
+# list of the services which we would be using
+services:
+
+  # the fuseki sparql endpoint service name 
+  fuseki:
+    # would be using an image of the FUSEKI endpoint 
+    image: stain/jena-fuseki
+    # would be using a volume to save the data
+    volumes:
+      # if want to store the data locally in ./fuseki_data
+      # - ./fuseki_data:/fuseki
+      # if want to store the data in a docker volume
+      - fuseki_data:/fuseki
+
+    # mapping of the ports, so that they can exposed
+    # [host port number]:[container port numer]
+    # comment the ports once the data has been uploaded, so that the server is not accessible publically  
+    ports:
+      - 3030:3030
+    # any enviorment global variable that has to be provided 
+    environment:
+      # the password that we want to keep for the server  
+      - ADMIN_PASSWORD=pw123
+
+  # the cqp4rdf service name 
+  cqp4rdf:
+    # would be built from the dockerfile provided here
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # mapping of the ports, so that they can exposed
+    # [host visible port number]:[container port numer]
+    ports:
+      - 8088:8088
+    # using this the fuseki sevice would start before the cqp4rdf service
+    depends_on:
+      - fuseki
+    # the running enviornment of the flask would be the development mode
+    environment:
+      - FLASK_ENV= development
+
+# the volumes which would be used by fuseki to store the RDF files
+# comment if storing the data locally in a directory 
+volumes:
+  fuseki_data:

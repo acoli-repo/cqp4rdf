@@ -7,11 +7,12 @@ n_results: 50
 # host and port where the api would be running  
 api:
   port: 8088
-  # would be running the flaks app locally
-  host: 127.0.0.1 
+  # would be running the flaks app on the docker container ... for that we need to un the app gloiballey on 0.0.0.0
+  host: 0.0.0.0
 # host, port and the endpoint database name where our SPARQL endpoint is hosted
 sparql:
-  host: http://127.0.0.1:3030/
+  # when using multiple containers then, other containers name is used in order to connect to that container 
+  host: http://fuseki:3030/
   # here "test" is the dataset name which we specified 
   endpoint: test/query
 # defining different corpus 
