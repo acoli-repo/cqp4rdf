@@ -1,6 +1,7 @@
 import lark
 import collections
 import itertools
+import logging
 
 from lark.tree import pydot__tree_to_png    # Just a neat utility function
 from IPython.display import Image
@@ -173,10 +174,12 @@ WHERE
         print(msg.format('CONDITIONS', self.token_conditions))
         print(msg.format('COND_VALUES', self.condition_values))
     
-    def __init__(self, prefixes, corpus_iri):
+    def __init__(self, prefixes, corpus_iri, search_config):
         super(CQP2SPARQLTransformer, self).__init__()
 
         self.sparql_tmpl = self.sparql_tmpl % (prefixes, corpus_iri)
+
+        self.search_config = search_config
         
         # A list of all the variables (both named and var_N)
         self.tokens = []
@@ -570,13 +573,12 @@ WHERE
         
         return [" (" + arg0["term_cond"] + "!=" + arg1["term_cond"] +") " for arg0 in args[0] for arg1 in args[1]]
 
-
-         # self._binary_op([arg["term_cond"] for arg in args], '!=')
+        # self._binary_op([arg["term_cond"] for arg in args], '!=')
 
     def term(self, args):
         term_data = {args[0].data: args[0].children[0]}
 
-        var_name ='?{}'.format(term_data['var_name'])
+        var_name = '?{}'.format(term_data['var_name'])
 
         # # term_data = {}
         # # term_data["var_name"] = var_name
@@ -589,20 +591,18 @@ WHERE
         term_datas = []
 
         for var_name in var_names:
-            term_data = {args[0].data: args[0].children[0]}
+            term_data = {'var_name': var_name, 'term_cond': self._new_val_name() if len(args) > 1 else var_name}
+            logging.info('var_name: {}\tterm_data: {}'.format(var_name, term_data))
 
-            # var_name ='?{}'.format(term_data['var_name'])
-
-            term_data = {}
-            term_data["var_name"] = var_name
-            term_data["term_cond"] = self._new_val_name()
-
-            self.constraints_values += [[var_name, term_data["term_cond"], Condition(operation="=", name=args[1], value=None)]]
+            if len(args) > 1:
+                self.constraints_values += [[var_name, term_data["term_cond"],
+                                             Condition(operation="=",
+                                                       name=args[1],
+                                                       value=None)]]
     
             print("term_data:", term_data)
 
             term_datas += [term_data]
-
 
         return term_datas
 
@@ -676,10 +676,11 @@ WHERE
         # for i, token in enumerate(self.tokens[:-1]):
         #         sparql['token_precedence'].append("\t{} nif:nextWord {} .".format(self.tokens[i], self.tokens[i+1]))
 
-        for i, token in enumerate(self.hiden_tokens[:-1]):
-                sparql['token_precedence'].append("\t{} nif:nextWord {} .".format(self.hiden_tokens[i], self.hiden_tokens[i+1]))
-
-
+        logging.info(self.search_config)
+        if self.search_config.get('keep-precedence', True):
+            logging.info('outputting precedence info')
+            for i, token in enumerate(self.hiden_tokens[:-1]):
+                    sparql['token_precedence'].append("\t{} nif:nextWord {} .".format(self.hiden_tokens[i], self.hiden_tokens[i+1]))
         
         return self.sparql_tmpl.format(variables=variables,
                                        conditions='\n\n'.join('\n'.join(section) for section in sparql.values()),
