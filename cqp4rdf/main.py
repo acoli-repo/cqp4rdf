@@ -168,14 +168,14 @@ def query():
     logging.info(cqp)
     logging.info(parser.parse(cqp).pretty())
 
-    transformer = cqp2sparql.CQP2SPARQLTransformer(prefixes, corpus_iri)
+    transformer = cqp2sparql.CQP2SPARQLTransformer(prefixes, corpus_iri, config.get('search', {}))
     trees = cqp2sparql.unfold(cqp2sparql.negless(parser.parse(cqp)))
 
     sparqls = []
 
     for tree in trees:
         # it's important not to reuse the transformers 
-        transformer = cqp2sparql.CQP2SPARQLTransformer(prefixes, corpus_iri)
+        transformer = cqp2sparql.CQP2SPARQLTransformer(prefixes, corpus_iri, config.get('search', {}))
         sparqls += [transformer.transform(tree)]
         
     sparql = cqp2sparql.concat(sparqls) + "ORDER BY ?links OFFSET " + str((page-1) * config['n_results']) + " LIMIT " + str(config['n_results']+1)

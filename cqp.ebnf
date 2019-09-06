@@ -127,6 +127,7 @@ constraints: c_disjunc	 	 -> constraints
 
 // word_param: var_name "." c_prefix ":" c_param	-> term
 word_param: var_name "." c_param			-> term
+    | var_name -> term
 // v_name: CNAME								-> v_name
 c_param: TOKEN 								-> c_param
 // c_prefix: CNAME								-> c_prefix

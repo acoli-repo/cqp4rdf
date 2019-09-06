@@ -15,7 +15,11 @@ sparql:
   host: http://fuseki:3030/
   # here "test" is the dataset name which we specified 
   endpoint: test/query
-# defining different corpus 
+# defining search options
+search:
+  # this setting defines if two tokens are required to be adjacent
+  keep-precedence: false
+# defining different corpus
 corpora:
   # name of the corpus 
   ud-en:
