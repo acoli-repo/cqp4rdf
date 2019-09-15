@@ -67,31 +67,49 @@ TODO
 Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
 -->
 ## Installation
+
+There are 2 methods to install, in both the cases, after running the fuseki server, the data has to uploaded on the fuseki server. 
+For that create the database with the name as specified in the `config.yaml` file. 
+Also, when uploading the file, specify the IRI which has been specified in the `config.yaml` file.
+
 ### 1. Running using the docker container 
-1. Install `docker` and `docker-compose` .
-2. Clone the repository 
+1. Create a virtualenv in python
+```
+virtualenv cqp4rdf_env --python=python3
+```
+2. Shift to that enviornment
+```
+source cqp4rdf_env/bin/activate
+```
+3. Install `docker` and `docker-compose` .
+4. Clone the repository 
 ```
 git clone https://github.com/acoli-repo/cqp4rdf 
 ```
-3. Shift to the CQP4RDF repository
+5. Shift to the CQP4RDF repository
 ```
 cd cqp4rdf
 ```
-4. Make the `config.yaml` file
+6. Make the `config.yaml` file
 ```
 cp cqp4rdf/config.docker.yaml cqp4rdf/config.yaml
 ``` 
-5. Build the `docker-compose` image 
+7. Edit the `config.yaml` as per your requirements and needs.
+
+8. Edit the `docker-compose` file as per your needs. If the ports specified in the docker-compose file are not available, i.e. 8088 and 3030, then the mapping can be updated as per the need. After update, the docker-compose file will have to build again.
+
+9. Build the `docker-compose` image 
 ```
 docker-compose build
 ```
-You can edit the `docker-compose` file as per your needs. If the ports specified in the docker-compose file are not available, i.e. 8088 and 3030, then the mapping can be updated as per the need. After update, the docker-compose file will have to build again.
- 
-7. Run the docker-compose containers
+
+10. Run the docker-compose containers
 ```
 docker-compose up
 ```
 This will start the 2 docker containers i.e. the CQP4RDF 
+
+
 ### 2. Running independently without docker
 
 You will need a triple store with a SPARQL endpoint to use `cqp4rdf`. It was tested with Apache Jena Fuseki and Blazegraph.
@@ -123,49 +141,80 @@ cp cqp4rdf/config.example.yaml cqp4rdf/config.yaml
 ```
 pip install -r requirements.txt 
 ```
-7. Run cqp4rdf
+7. Edit the `config.yaml` as per your requirements and needs.
+
+8. Run cqp4rdf
 ```
 python cqp4rdf/main.py
 ```
-8. Shift to the repository, where you have installed your SPARQL endpoint and run the SPARQL endpoint. You can also change the port on which you are running your fuseki endpoint, but same has to update in the `config.yaml` 
+9. Shift to the repository, where you have installed your SPARQL endpoint and run the SPARQL endpoint. You can also change the port on which you are running your fuseki endpoint, but same has to update in the `config.yaml` 
 ```
 ./fuseki-server
 ``` 
+
 <!-- 
 ## API Reference
 TODO
 Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For the medium size, to larger projects, it is important to at least provide a link to where the API reference docs live.
 -->
+## Configuring the `config.yaml` file
 
-## Direct Deployment
-We also have a separate docker file hosted on docker hub so that everything can be deployed easily.
+All the fields in the `config.yaml` files have already been commented. 
+Here we would be explainign the most important thing in setting the `config.yaml`, i.e. the fields that we are specifying in the corpus.
+For eg:-
+```
+ FEATS:
+   name: FEATS
+   query: conll:FEATS
+   disabled: false
+   type: list
+   multivalued: true
+   separator: "|"
+   values:
+     - "Case"
+     - "Animacy"
+```
+This is one of the field, which has various options:-
+- **name**:- This specifies the name of the field.
+- **query**:- When being added in the query, this field would be represented like "conll:FEATS".
+- **disabled**:- This option refers to the whether the field has to disabled or enabled. 
+    - `disabled=True`:- it means that the field is disabled and would be ignored. 
+    - `disabled=False`:- it means that the field is not disabled and would not be ignored.
+- **type**:- This option refers to the type of field.
+    - `type = list`:- would be showing the values in the dropdown
+    - `type = suggest`:- would be suggesting the values 
+    - `type = integer`:- would be having an input box with only integers allowed
+- **multivalued**:- This option refers whether that field has mutiple values or not. WOuld be used when showing the info for the word.
+    - `multivalued = true`:- would be referring that the field can have multiple values.
+    - `multivalued = false`:- would be referring that the field does not have multiple values.
+- **separator**:- The value of the separator would be used to separate the values for a field, if the field has multiple values. Used when showing the word info for the retrieved sentences. *It option is only required when `mulivalued=true`*
+- **values**:- *This option is only required when the `type=list` or the `type=suggest`.* This option is a list, which would would be containing the value to be suggetsed or in the dropdown.
+    - if `type=list`, then these values would be shown in the dropdown.
+    - if `type=suggest`, then these values would be suggested in the text box.
 
-1. once done with your update in the config file and the docker-compose file, build the docker file and push the docker file to your docker hub. Unfortunately, we can't push docker-compose on docker hub.
-- instead, the docker-compose is written in comments so that it can be made on the go
-- while making a docker-compose to be public on the docker hub, update the cp4rdf section from being built to the image  
-2. now login to your server, where you want to host it
-- now install docker and docker-compose on the server
-- once installed, now make a docker-compose file
-- in the docker-compose file, update the d
-1. Install the docker and docker-compose
-2. Pull the docker image
-3. Make a docker-compose file as on the docker hub page
-4. run the docker-compose file
-5. The fuseki-server would be a port number 3030 and the CQP4RDF would be at the server 8088, by default. this could be updated as per the need.
-6. The data can be uploaded on the SARQL endpoint, port number as specified by  
-and your website is up
-- Now 
+## Deployment
+
+Since we have the docker containers, the app can be directly deployed.
+All the instructions are same as that of running the docker container.
+Just a few more additions:-
+- Just for security purposes, after the data has been uploaded on the fuseki server, it would be better to comment out the ports section for the fuseki server, so that it is not publically accessible.
+- Also, since you would be leaving the terminal, it would be nice to run the `docker-compose` in daemon mode, so that yu can exit the container easily. It can be done in the following way ( use -d for the same):- 
+```
+docker-compose up -d
+```
+
 
 <!--
 ## Tests
 TODO
 Describe and show how to run the tests with code examples.
 -->
+<!--
 ## How to use?
 TODO
 If people like your project they’ll want to learn how they can use it. To do so include step by step guide to use your project.
 ==> Here include how to make an instance for their project like cdli
-
+-->
 <!--
 ## Contribute
 TODO
@@ -185,7 +234,5 @@ Some of the possible future improvements:-
 - Sagar
 
 ## License
-TODO
-A short snippet describing the license (MIT, Apache etc)
+This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/acoli-repo/cqp4rdf/blob/master/LICENSE) file for details.
 
-MIT © [Yourname]()
