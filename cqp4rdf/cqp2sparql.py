@@ -673,8 +673,8 @@ WHERE
             #                                                                           value=var[1]["term_cond"]
             #                                                                          )))
         
-        # for i, token in enumerate(self.tokens[:-1]):
-        #         sparql['token_precedence'].append("\t{} nif:nextWord {} .".format(self.tokens[i], self.tokens[i+1]))
+        for i, token in enumerate(self.tokens[:-1]):
+                sparql['token_precedence'].append("\t{} nif:nextWord {} .".format(self.tokens[i], self.tokens[i+1]))
 
         logging.info(self.search_config)
         if self.search_config.get('keep-precedence', True):
