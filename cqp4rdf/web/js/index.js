@@ -40,7 +40,9 @@ function send_config(vars) {
     return vars
 }
 
-function or_property(block, word){
+var suggest_counter=0
+
+function or_property(block,word){
 	/**
 	 * 	This function adds more conditions in OR with the current condition
 	 * 	for that particular word
@@ -130,12 +132,14 @@ function update_input_style(element,word){
 		// making the dropdown options from the values
 		values_list=""
 		for(i=0;i<values.length;i++){
-			values_list+=`<option value="${values[i]}" />`;
+			values_list+=`<option value="${values[i]}" /><br/>`;
 		}
 		
 		// making the auto suggest feature for the input box
 		// it also has another dropdown which includes arious featurs like - startswith, endswith, contains 
 		// it also has a regex checkbox, if checked out, would add '\' for the special characters 
+		suggest_counter+=1;
+
 		input_suggest=`
 			<div class="input-group mb-3" style="width: 100%; margin: 1%;">
 				<div class="input-group-prepend row" style="width:100%;margin:0%;">
@@ -152,13 +156,9 @@ function update_input_style(element,word){
 					<div class="input-group-prepend prefix" style="display:none;">
 						<span class="input-group-text" style="border-radius:0 0 0 5px;">.*</span>
 					</div>
-					<input name="suggest" list="suggest" type="text" style="border-radius:0 0 5px 5px;" class="form-control property_value" onchange="update_query()">		
-					<datalist id="suggest">
-						<label>
-							<select name="suggest">
-								${values_list}
-							</select>
-						</label>
+					<input name="suggest" list="suggest${suggest_counter}" type="text" style="border-radius:0 0 5px 5px;" class="form-control property_value" onchange="update_query()">		
+					<datalist id="suggest${suggest_counter}">
+						${values_list}
 					</datalist>
 					<div class="input-group-append suffix" style="display:none;">
 						<span class="input-group-text" style="border-radius:0 0 5px 0;">.*</span>

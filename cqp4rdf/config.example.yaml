@@ -95,7 +95,10 @@ corpora:
         # since the type of annotattion is SUGGEST,these values would be suggested
         values:
           - "o.1.1"
-          - "o.1.2"
+          - "r.3.5"
+          - "l.1.1"
+          - "s1.col1.1.1"
+          - "s1.2.1"
       # field FROM
       FORM:
         # field name = FROM
@@ -114,8 +117,12 @@ corpora:
         multivalued: false
         # since the type of annotattion is SUGGEST,these values would be suggested
         values:
-          - "f1"
-          - "f2"
+          - "udu"
+          - "sze"
+          - "lugal"
+          - "lu2"
+          - "mu"
+          - "mu-na-du3"
       # field LEMMA
       LEMMA:
         # field name = LEMMA
@@ -134,8 +141,12 @@ corpora:
         multivalued: false
         # since the type of annotattion is SUGGEST,these values would be suggested
         values:
-          - "s1"
-          - "s2"
+          - "udu"
+          - "sze"
+          - "lugal"
+          - "lu2"
+          - "mu"
+          - "du3"
       # field UPOSTAG
       UPOSTAG:
         # field name = UPOSTAG
@@ -155,7 +166,15 @@ corpora:
         # since the type of annotattion is LIST,these values would only be shown in the dropdown
         values:
           - "ADJ"
+          - "ADP"
           - "ADV"
+          - "CCONJ"
+          - "DET"
+          - "INTJ"
+          - "NUM"
+          - "NOUN"
+          - "PROPN"
+          - "VERB"
       # field XPOSTAG
       XPOSTAG:
         # field name = XPOSTAG
@@ -176,6 +195,29 @@ corpora:
         values:
           - "AJ"
           - "AV"
+          - "NU"
+          - "CNJ"
+          - "DET"
+          - "J"
+          - "N"
+          - "V"
+          - "PRP"
+          - "DN"
+          - "EN"
+          - "GN"
+          - "MN"
+          - "PN"
+          - "RN"
+          - "SN"
+          - "TN"
+          - "WN"
+          - "AN"
+          - "CN"
+          - "FN"
+          - "LN"
+          - "ON"
+          - "QN"
+          - "YN"
       # field FEATS
       FEATS:
         # field name = FEATS
@@ -196,5 +238,21 @@ corpora:
         separator: "|"
         # since the type of annotattion is LIST,these values would only be shown in the dropdown
         values:
-          - "Case"
-          - "Animacy"
+          - ".*Animacy=Hum.*"
+          - ".*Animacy=Nhum.*"
+          - ".*Case=Abs.*"
+          - ".*Case=Gen.*"
+          - ".*Case=Erg.*"
+          - ".*Case=Abl.*"
+          - ".*Number=Plur.*"
+          - ".*Number=Sing.*"
+          - ".*Aspect=Prosp.*"
+          - ".*Mood=Opt.*"
+          - ".*Person=0.*"
+          - ".*Person=1.*"
+          - ".*Person=2.*"
+          - ".*Person=3.*"
+          - ".*Person=4.*"
+          - ".*Polarity=Opt.*"
+          - ".*Verb Form=Fin.*"
+          - ".*Voice=Mid.*"

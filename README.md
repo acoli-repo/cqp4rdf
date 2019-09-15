@@ -68,9 +68,7 @@ Show what the library does as concisely as possible, developers should be able t
 -->
 ## Installation
 
-There are 2 methods to install, in both the cases, after running the fuseki server, the data has to uploaded on the fuseki server. 
-For that create the database with the name as specified in the `config.yaml` file. 
-Also, when uploading the file, specify the IRI which has been specified in the `config.yaml` file.
+For CDLI version, the docker version of config file has been made the default config.yaml file.
 
 ### 1. Running using the docker container 
 1. Create a virtualenv in python
@@ -84,7 +82,7 @@ source cqp4rdf_env/bin/activate
 3. Install `docker` and `docker-compose` .
 4. Clone the repository 
 ```
-git clone https://github.com/acoli-repo/cqp4rdf 
+git clone https://github.com/cdli-gh/cqp4rdf 
 ```
 5. Shift to the CQP4RDF repository
 ```
@@ -127,7 +125,7 @@ source cqp4rdf_env/bin/activate
 ```
 3. Clone the repository 
 ```
-git clone https://github.com/acoli-repo/cqp4rdf 
+git clone https://github.com/cdli-gh/cqp4rdf 
 ```
 4. Shift to the CQP4RDF repository
 ```
@@ -203,6 +201,27 @@ Just a few more additions:-
 docker-compose up -d
 ```
 
+Also the RDF data files in form of `.ttl` files have been added in the `/data` folder.
+Once the fuseki server is up, all these files can be uploaded to the database with configurations as in `config.yaml` file. 
+
+## Direct Deployment
+We also have a separate docker file hosted on docker hub so that everything can be deployed easily.
+
+1. once done with your update in the config file and the docker-compose file, build the docker file and push the docker file to your docker hub. Unfortunately, we can't push docker-compose on docker hub.
+- instead, the docker-compose is written in comments so that it can be made on the go
+- while making a docker-compose to be public on the docker hub, update the cp4rdf section from being built to the image  
+2. now login to your server, where you want to host it
+- now install docker and docker-compose on the server
+- once installed, now make a docker-compose file
+- in the docker-compose file, update the d
+1. Install the docker and docker-compose
+2. Pull the docker image
+3. Make a docker-compose file as on the docker hub page
+4. run the docker-compose file
+5. The fuseki-server would be a port number 3030 and the CQP4RDF would be at the server 8088, by default. this could be updated as per the need.
+6. The data can be uploaded on the SARQL endpoint, port number as specified by  
+and your website is up
+<!-- - Now  -->
 
 <!--
 ## Tests
