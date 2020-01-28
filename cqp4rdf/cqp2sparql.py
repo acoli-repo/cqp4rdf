@@ -635,7 +635,7 @@ WHERE
 
         sparql['token_bind'] += ["\tBIND(CONCAT((" + '_word), " ", ('.join(self.tokens) + "_word)) AS ?words) ."]
         sparql['token_bind'] += ["\tBIND(CONCAT(STR(" + '), " ", STR('.join(self.tokens) + ")) AS ?links) ."]
-        sparql['token_bind'] += ["\tBIND(CONCAT(STR(" + '_parent), " ", STR('.join(self.tokens) + "_parent)) AS ?parents) ."]
+        # sparql['token_bind'] += ["\tBIND(CONCAT(STR(" + '_parent), " ", STR('.join(self.tokens) + "_parent)) AS ?parents) ."]
 
         if not self.tokens:
             return ""
@@ -647,8 +647,8 @@ WHERE
             # sparql['var_definitions'].append('\t{var} a nif:Word .'.format(var=var))
 
             sparql['var_optional'].append('\t' + var + ' conll:FORM ' + var + '_word . ')
-            sparql['var_optional'].append('\t' + var + ' conll:HEAD* ' + var + '_parent . ')
-            sparql['var_optional'].append('\t' + var + '_parent a nif:Sentence . ')
+            sparql['var_optional'].append('\t' + var + ' conll:HEAD* ?parents . ')
+            sparql['var_optional'].append('\t?parents a nif:Sentence . ')
 
 
         for var in self.hiden_tokens:
