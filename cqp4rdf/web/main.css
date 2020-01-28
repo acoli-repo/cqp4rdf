@@ -35,6 +35,10 @@
     text-decoration: none;
 }
 
+#result_section{
+    display: none;
+}
+
 #wordInfoBox {
     display: none;
     position: absolute;
