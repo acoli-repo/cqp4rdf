@@ -3,6 +3,8 @@ FROM alpine:latest
 
 # install python3-dev
 RUN apk add --no-cache python3-dev 
+# install git
+RUN apk add --no-cache git 
 # upgrade python3 pip
 RUN pip3 install --upgrade pip
 # copy requirements.txt to /tmp/
@@ -23,7 +25,5 @@ WORKDIR /cqp4rdf/cqp4rdf/
 # expose the port on which the app would be working
 EXPOSE 8088
 
-# on entering the container the following command would run i.e. the ENTRYPOINT 
-ENTRYPOINT ["python3"]
-# followed by the filename, so the app is running
-CMD ["main.py"]
+# on entering the container will upload the data followed by running the flask app 
+CMD ["sh", "-c", "python3 data_upload.py && python3 main.py"]

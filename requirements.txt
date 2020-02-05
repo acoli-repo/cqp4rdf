@@ -4,3 +4,4 @@ lark-parser
 IPython
 SPARQLWrapper
 oyaml
+requests

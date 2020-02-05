@@ -14,6 +14,9 @@ sparql:
   # when using multiple containers then, other containers name is used in order to connect to that container 
   host: http://fuseki:3030/
   # here "test" is the dataset name which we specified 
+  # path where data would be stored
+  store: test/data
+  # path where data would be queried 
   endpoint: test/query
 # defining search options
 search:
@@ -43,6 +46,8 @@ corpora:
   cdli:
     # name of the corpus 
     name: CDLI
+    # the github url, where the RDF data is stored  
+    data: https://github.com/cdli-gh/rdf_converted_data/
     # the IRI, over which it would be endered while making the dataset and uploadig the file
     iri: https://github.com/cdli-gh/Multilayer-Annotation-Query-Tool/
     # the link where the file are hosted, would be linked on the we page
