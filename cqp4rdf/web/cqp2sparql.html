@@ -178,6 +178,7 @@ $(window).on('load', function () {
 
     // a:[conll:LEM="է"] []
     var getResults = function (endpoint, url, page, convertData) {
+        $("#result_section").show();
         $("#result").html("<i>Loading...</i>");
         $.ajax({
             type: 'GET',
@@ -286,7 +287,7 @@ $(window).on('load', function () {
         </div>
     </div>
     <br>
-    <div class="card shadow">
+    <div class="card shadow" id="result_section">
         <!--<div class="panel-body" id="sparql">
 
         </div>-->
