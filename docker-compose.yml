@@ -24,6 +24,13 @@ services:
     environment:
       # the password that we want to keep for the server  
       - ADMIN_PASSWORD=pw123
+    # command to run on start of the fuseki server
+    # in order to create the in-memory dataset 
+    entrypoint:
+      - /docker-entrypoint.sh 
+      - /jena-fuseki/fuseki-server 
+      - --mem 
+      - /test
 
   # the cqp4rdf service name 
   cqp4rdf:
