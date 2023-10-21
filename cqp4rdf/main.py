@@ -9,6 +9,10 @@ import urllib.parse
 
 import logging
 
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from werkzeug.wrappers import Response
+from werkzeug.serving import run_simple
+
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 logging.basicConfig(filename='cqp4rdf.log',
@@ -22,6 +26,10 @@ app = Flask(__name__, static_url_path='', static_folder=web_path, template_folde
 
 with open(config_path, encoding='utf-8') as inp_file:
     config = oyaml.safe_load(inp_file)
+
+application = DispatcherMiddleware(Response('Not Found', status=404), {
+    '/cqp4rdf': app
+})
 
 prefixes = '\n'.join('prefix {}: <{}>'.format(key, val) for key, val in config['corpora'][config['default']]['prefixes'].items())
 prefixes_index = {val: key for key, val in config['corpora'][config['default']]['prefixes'].items()}
@@ -257,5 +265,11 @@ if __name__ == '__main__':
 
     conn = SPARQLWrapper(urllib.parse.urljoin(config['sparql']['host'], config['sparql']['endpoint']))
 
-    app.run(debug=True, host=config['api']['host'], port=config['api']['port'])
-
+    # Use run_simple to start the WSGI application instead of app.run
+    run_simple(
+        hostname=config['api']['host'],
+        port=config['api']['port'],
+        application=application,  # Note that we're now using "application" instead of "app"
+        use_reloader=True,
+        use_debugger=True
+    )
